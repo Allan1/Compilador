@@ -103,8 +103,15 @@ int main(int argc, char **argv) {
 					printf("next size %c %i\n",c,(i+1));
 					if(token==NULL)
 						token = malloc(1);
-					else
-						token = realloc(token,(i+1));
+					else{
+					 	char* aux = token; //  salva temporariamente
+                                                token = NULL;
+                                                token = (char*) malloc (sizeof(char)*(i+1)); // da um malloc
+                                                token =aux;
+                                                aux = NULL; // faz com que aux n aponte pra token
+                                                free(aux); // libera aux
+						//token = realloc(token,(i+1));
+					}
 					token[i] = c;
 					i++;
 				}
