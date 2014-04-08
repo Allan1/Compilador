@@ -8,11 +8,12 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 char **r_words;
 void **r_simb;
 
-void checkSymbol(char c){
+void checkSymbol(char* token, char c){
 
 }
 
@@ -20,8 +21,8 @@ void checkToken(char* token, int br){
 	int i,l;
 	bool found = false;
 	if(token!=NULL){
-		puts("!null");
-		for(l=0;l<15 && !found;l++){
+		//puts("!null");
+		/*for(l=0;l<15 && !found;l++){
 			printf("strlen %s %i\n",token,strlen(token));
 			for(i=0;i<strlen(token);i++){
 				if(r_words[l][i]!=token[i]){
@@ -32,9 +33,96 @@ void checkToken(char* token, int br){
 			if(i==sizeof(token) && r_words[l][i]=='\0'){
 				found = true;
 			}
-		}
+		}*/
 		printf("LINHA %i: %s\n",br,token);
 	}
+}
+
+bool isNumber(char c){
+	if(c>='0' && c<='9')
+		return true;
+	return false;
+}
+
+bool isUppercase(char c){
+	if(c>='A' && c<='Z')
+		return true;
+	return false;
+}
+
+bool isLowercase(char c){
+	if(c>='a' && c<='z')
+		return true;
+	return false;
+}
+
+bool isAlphanumeric(char c){
+	if(isNumber(c) || isUppercase(c) || isLowercase(c))
+		return true;
+	return false;
+}
+
+bool isSymbol(char c){
+	printf("%c\n",c);
+	if(!isAlphanumeric(c))
+		return true;
+	return false;
+}
+
+void append(char* token,char c){
+
+	char src[1];
+	src[0] = c;
+
+
+   strcat(token, src);
+
+   printf("%s",token);
+}
+
+void validateAlphanumeric(FILE* f, char* token,char c, int br){
+	puts("validate");
+	if(isUppercase(c)){
+		append(token,c);
+		fseek(f,4,SEEK_CUR);
+		fscanf(f,"%c",&c);
+		while(isAlphanumeric(c) && !feof(f)){
+			append(token,c);
+			fseek(f,4,SEEK_CUR);
+			fscanf(f,"%c",&c);
+		}
+		checkToken(token,br);
+	}
+	else if(isLowercase(c)){
+		append(token,c);
+		puts("antes");
+		fseek(f,4,SEEK_CUR);
+		fscanf(f,"%c",&c);
+		puts("depois");
+		while(isAlphanumeric(c) && !feof(f)){
+			append(token,c);
+			fseek(f,4,SEEK_CUR);
+			fscanf(f,"%c",&c);
+			printf("isalpha:%c\n",c);
+		}
+		checkToken(token,br);
+	}
+	else if(isNumber(c)){
+		append(token,c);
+		fseek(f,4,SEEK_CUR);
+		fscanf(f,"%c",&c);
+		while(isAlphanumeric(c) && !feof(f)){
+			append(&token,c);
+			fseek(f,4,SEEK_CUR);
+			fscanf(f,"%c",&c);
+		}
+		checkToken(token,br);
+
+	}
+	if(c=='\n'){
+		br++;
+	}
+
 }
 
 int main(int argc, char **argv) {
@@ -77,62 +165,49 @@ int main(int argc, char **argv) {
 	r_simb[18] = "[";
 	r_simb[19] = "]";
 
-	if(argc > 1){
-		printf("%s\n",argv[1]);
+	if(argc > 0){
+		//printf("%s\n",argv[1]);
 		FILE *f;
-		f = fopen(argv[1],"r");
+		f = fopen("Debug/teste","r");
 		if(f!=NULL){
-			int br=0,i=0;
 			char c;
+
+			int br=0,i=0;
 			char *token = NULL;
 			fseek(f,0,SEEK_SET);
-			while(!feof(f)){
-				fscanf(f,"%c",&c);
-				printf("\%c\n",c);
 
-				if((c>='A' && c<='Z')||(c>='a' && c<='z')||(c>='0' && c<='9')){//token
-					puts("alfanumerico");
-					/*
-					if(i>0){// check prev char
-						if(!((token[i-1]>='A' && token[i-1]<='Z')||(token[i-1]>='a' && token[i-1]<='z')||(token[i-1]>='0' && token[i-1]<='9'))){
-							checkToken(token,br);
+			while(!feof(f)){
+				puts("while");
+				fscanf(f,"%c",&c);
+				printf("%c\n",c);
+				if(c=='\n'){
+					puts("br");
+					br++;
+					continue;
+				}
+				else if(isSymbol(c)){
+					//puts("symbol");
+					//Alterar para a analise sintatica
+					if(c=='>' || c=='<'){
+						fseek(f,4,SEEK_CUR);
+						fscanf(f,"%c",&c);
+
+						if(isAlphanumeric(c)){
+							continue;
+						}else{
+							checkSymbol(token,c);
 						}
-						i = 0;
 					}
-					*/
-					printf("next size %c %i\n",c,(i+1));
-					if(token==NULL)
-						token = malloc(1);
-					else{
-					 	char* aux = token; //  salva temporariamente
-                                                token = NULL;
-                                                token = (char*) malloc (sizeof(char)*(i+1)); // da um malloc
-                                                token =aux;
-                                                aux = NULL; // faz com que aux n aponte pra token
-                                                free(aux); // libera aux
-						//token = realloc(token,(i+1));
-					}
-					token[i] = c;
-					i++;
 				}
 				else{
-					puts("não alfanumerico");
-					checkToken(token,br);
-					//puts("depois");
-					token = NULL;
-					i = 0;
-					if(c=='\n'){
-						br++;
-					}
-					else if(c==' '){
-
-					}
+					//puts("chamada validate");
+					validateAlphanumeric(f,token,c,br);
 				}
-				//printf("\%c\n",c);
 			}
 			br--;
 			printf("br: %i\n",br);
 			fclose(f);
+
 		}
 		else{
 			printf("Arquivo nao encontrado\n");
