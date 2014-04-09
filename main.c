@@ -11,20 +11,30 @@
 #include <string.h>
 
 char **r_words;
-void **r_simb;
+char **r_simb;
 
-void checkSymbol(char* token, char c){
-
+void checkSymbol(char c,int br){
+	int i;
+	bool found = false;
+	if(c!=NULL){
+		for(i=0;i<20 && !found;i++){
+			//printf("i:%d %s\n",i,r_simb[i]);
+			if((strlen(r_simb[i])==1) && (r_simb[i][0]==c)){
+				found = true;
+			}
+		}
+		if(!found)
+			printf("LINHA %i: %c\n",br,c);
+	}
 }
 
-void checkToken(char* token, int br){
+void checkToken(char* token, int br){//tem que corrigir
 	int i,l;
 	bool found = false;
 	if(token!=NULL){
-		//puts("!null");
-		/*for(l=0;l<15 && !found;l++){
-			printf("strlen %s %i\n",token,strlen(token));
-			for(i=0;i<strlen(token);i++){
+		printf("strlen %s %i\n",token,strlen(token));
+		for(l=0;l<15 && !found;l++){
+			for(i=0;i<strlen(token) && i<strlen(r_words[l]);i++){
 				if(r_words[l][i]!=token[i]){
 					l++;
 					break;
@@ -33,8 +43,9 @@ void checkToken(char* token, int br){
 			if(i==sizeof(token) && r_words[l][i]=='\0'){
 				found = true;
 			}
-		}*/
-		printf("LINHA %i: %s\n",br,token);
+		}
+		if(!found)
+			printf("LINHA %i: %s\n",br,token);
 	}
 }
 
@@ -63,71 +74,103 @@ bool isAlphanumeric(char c){
 }
 
 bool isSymbol(char c){
-	printf("%c\n",c);
 	if(!isAlphanumeric(c))
 		return true;
 	return false;
 }
 
 char* append(char* token, char c) {
-
     char* src = &c;
+    char * new_str;
 
-    char * new_str ;
-    new_str = malloc(sizeof(token)+sizeof(src)+1); // aloca o espaco pra concatencao
-    if(new_str != NULL){
-        new_str[0] = '\0';
-        strcat(new_str,token);
-        strcat(new_str,src);
+    if(token==NULL){
+    	token = (char*)malloc(sizeof(char));
+    	token[0] = c;
     }
-    token = new_str;
-    new_str = NULL;
-    free(new_str);
+    else{
+    	/*printf("%s\n",token);
+    	new_str = malloc(sizeof(token)+sizeof(src)+1); // aloca o espaco pra concatencao
+		if(new_str != NULL){
+			new_str[0] = '\0';
+			strcat(new_str,token);
+			strcat(new_str,src);
+		}
+		token = new_str;
+		new_str = NULL;
+		free(new_str);*/
+    	int i;
+    	new_str = token;
+    	token = (char*)malloc(sizeof(char)*(strlen(new_str)+2));
+    	for(i=0; i< strlen(new_str); i++)
+    		token[i] = new_str[i];
+    	token[i] = c;
+    	i++;
+    	token[i] = '\0';
+
+    	//free(new_str);
+    }
+
+	if(token!=NULL)
+		printf("token:%s\n",token);
 
     return token;
 }
 
-void validateAlphanumeric(FILE* f, char* token,char c, int br){
-	puts("validate");
+void validateAlphanumeric(FILE* f, char* token,char c, int* ptr_br,int* ptr_index){
+	//puts("validate");
 	if(isUppercase(c)){
 		token = append(token,c);
-		fseek(f,4,SEEK_CUR);
+		(*ptr_index) = (*ptr_index) + 1;
+		fseek(f,*ptr_index,SEEK_SET);
 		fscanf(f,"%c",&c);
+		printf("index:%d char:%c\n",(*ptr_index),c);
 		while(isAlphanumeric(c) && !feof(f)){
+			//printf("seek_cur: %d\n",ftell(f));
 			token = append(token,c);
-			fseek(f,4,SEEK_CUR);
+			*ptr_index = *ptr_index + 1;
+			fseek(f,*ptr_index,SEEK_SET);
 			fscanf(f,"%c",&c);
+			printf("index:%d char:%c\n",(*ptr_index),c);
 		}
-		checkToken(token,br);
+		checkToken(token,(*ptr_br));
 	}
 	else if(isLowercase(c)){
 		token = append(token,c);
 		puts("antes");
-		fseek(f,4,SEEK_CUR);
+		*ptr_index = *ptr_index + 1;
+		fseek(f,*ptr_index,SEEK_SET);
 		fscanf(f,"%c",&c);
 		puts("depois");
 		while(isAlphanumeric(c) && !feof(f)){
+			printf("seek_cur: %d\n",ftell(f));
 			token = append(token,c);
-			fseek(f,4,SEEK_CUR);
+			*ptr_index = *ptr_index + 1;
+			fseek(f,*ptr_index,SEEK_SET);
 			fscanf(f,"%c",&c);
 			printf("isalpha:%c\n",c);
 		}
-		checkToken(token,br);
+		checkToken(token,(*ptr_br));
 	}
 	else if(isNumber(c)){
 		token = append(token,c);
-		fseek(f,4,SEEK_CUR);
+		*ptr_index = *ptr_index + 1;
+		fseek(f,*ptr_index,SEEK_SET);
 		fscanf(f,"%c",&c);
 		while(isAlphanumeric(c) && !feof(f)){
-			token = append(&token,c);
-			fseek(f,4,SEEK_CUR);
+			token = append(token,c);
+			*ptr_index = *ptr_index + 1;
+			fseek(f,*ptr_index,SEEK_SET);
 			fscanf(f,"%c",&c);
 		}
-		checkToken(token,br);
+		checkToken(token,(*ptr_br));
 
 	}
+	else{
+		//erro
+	}
 	if(c=='\n'){
-		br++;
+		(*ptr_br)++;
+		printf("LINHA:%d\n",(*ptr_br));
 	}
 
 }
@@ -150,15 +193,15 @@ int main(int argc, char **argv) {
 	r_words[13] = "SENAO";
 	r_words[14] = "SIM";
 
-	r_simb = (void*)malloc(sizeof(void)*20);
+	r_simb = (char**)malloc(sizeof(char*)*20);
 	r_simb[0] = "+";
 	r_simb[1] = "-";
 	r_simb[2] = "*";
 	r_simb[3] = "/";
 	r_simb[4] = ">";
 	r_simb[5] = "<";
-	r_simb[6] = ">=";
-	r_simb[7] = "<=";
+	r_simb[6] = "[";
+	r_simb[7] = "]";
 	r_simb[8] = "=";
 	r_simb[9] = "<>";
 	r_simb[10] = "<<";
@@ -169,50 +212,55 @@ int main(int argc, char **argv) {
 	r_simb[15] = ")";
 	r_simb[16] = "{";
 	r_simb[17] = "}";
-	r_simb[18] = "[";
-	r_simb[19] = "]";
+	r_simb[18] = ">=";
+	r_simb[19] = "<=";
 
 	if(argc > 0){
 		//printf("%s\n",argv[1]);
 		FILE *f;
-		f = fopen("Debug/teste","r");
+		f = fopen("Debug/exemplo","r");
 		if(f!=NULL){
 			char c;
-
+			int index = 0;
 			int br=0,i=0;
 			char *token = NULL;
-			fseek(f,0,SEEK_SET);
-
+			fseek(f,index,SEEK_SET);
+			printf("LINHA:%d\n",br);
 			while(!feof(f)){
-				puts("while");
+				//printf("seek_cur: %d\n",ftell(f));
 				fscanf(f,"%c",&c);
-				printf("%c\n",c);
+				printf("index:%d char:%c\n",index,c);
 				if(c=='\n'){
-					puts("br");
 					br++;
-					continue;
+					printf("LINHA:%d\n",br);
 				}
 				else if(isSymbol(c)){
 					//puts("symbol");
 					//Alterar para a analise sintatica
 					if(c=='>' || c=='<'){
-						fseek(f,4,SEEK_CUR);
+						index = index + 1;
+						fseek(f,index,SEEK_SET);
 						fscanf(f,"%c",&c);
-
+						printf("index:%d char:%c\n",index,c);
 						if(isAlphanumeric(c)){
 							continue;
 						}else{
-							checkSymbol(token,c);
+							checkSymbol(c,br);
 						}
+					}
+					else{
+						checkSymbol(c,br);
 					}
 				}
 				else{
 					//puts("chamada validate");
-					validateAlphanumeric(f,token,c,br);
+					validateAlphanumeric(f,token,c,&br,&index);
 				}
+				index = index + 1;
+				fseek(f,index,SEEK_SET);
 			}
 			br--;
-			printf("br: %i\n",br);
+			//printf("br: %i\n",br);
 			fclose(f);
 
 		}
