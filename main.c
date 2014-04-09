@@ -69,38 +69,45 @@ bool isSymbol(char c){
 	return false;
 }
 
-void append(char* token,char c){
+char* append(char* token, char c) {
 
-	char src[1];
-	src[0] = c;
+    char* src = &c;
 
+    char * new_str ;
+    new_str = malloc(sizeof(token)+sizeof(src)+1); // aloca o espaco pra concatencao
+    if(new_str != NULL){
+        new_str[0] = '\0';
+        strcat(new_str,token);
+        strcat(new_str,src);
+    }
+    token = new_str;
+    new_str = NULL;
+    free(new_str);
 
-   strcat(token, src);
-
-   printf("%s",token);
+    return token;
 }
 
 void validateAlphanumeric(FILE* f, char* token,char c, int br){
 	puts("validate");
 	if(isUppercase(c)){
-		append(token,c);
+		token = append(token,c);
 		fseek(f,4,SEEK_CUR);
 		fscanf(f,"%c",&c);
 		while(isAlphanumeric(c) && !feof(f)){
-			append(token,c);
+			token = append(token,c);
 			fseek(f,4,SEEK_CUR);
 			fscanf(f,"%c",&c);
 		}
 		checkToken(token,br);
 	}
 	else if(isLowercase(c)){
-		append(token,c);
+		token = append(token,c);
 		puts("antes");
 		fseek(f,4,SEEK_CUR);
 		fscanf(f,"%c",&c);
 		puts("depois");
 		while(isAlphanumeric(c) && !feof(f)){
-			append(token,c);
+			token = append(token,c);
 			fseek(f,4,SEEK_CUR);
 			fscanf(f,"%c",&c);
 			printf("isalpha:%c\n",c);
@@ -108,11 +115,11 @@ void validateAlphanumeric(FILE* f, char* token,char c, int br){
 		checkToken(token,br);
 	}
 	else if(isNumber(c)){
-		append(token,c);
+		token = append(token,c);
 		fseek(f,4,SEEK_CUR);
 		fscanf(f,"%c",&c);
 		while(isAlphanumeric(c) && !feof(f)){
-			append(&token,c);
+			token = append(&token,c);
 			fseek(f,4,SEEK_CUR);
 			fscanf(f,"%c",&c);
 		}
