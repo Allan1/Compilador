@@ -12,6 +12,17 @@
 
 static char* r_words[] = {"BINARIO","CONTINUAR","E","ENQUANTO","INTEIRO","IMPRIMIR","LER","NAO","OU","PARAR","REAL","RETORNAR","SE","SENAO","SIM"};
 static char* r_simb[] = {"+","-","*","/",">","<","[","]","=","<>","<<",".",";","@","(",")","{","}",">=","<="};
+char** tokens;
+int tokens_n = 0;
+
+void saveToken(char* token){
+	tokens_n++;
+	if(tokens==NULL)
+		tokens = (char**)malloc(sizeof(char*)*tokens_n);
+	else
+		tokens = (char**)realloc(tokens,sizeof(char*)*tokens_n);
+	tokens[tokens_n-1] = token;
+}
 
 bool isNumber(char c){
 	if(c>='0' && c<='9')
@@ -47,11 +58,12 @@ void checkIdentifier(char* token, int br){
 	int i;
 	if(token!=NULL){
 		for(i=0;i<strlen(token);i++){
-			if(isUppercase(token[i])){
+			if(!isLowercase(token[i]) && !isNumber(token[i])){
 				printf("LINHA %d: %s\n",br,token);
 				break;
 			}
 		}
+		saveToken(token);
 	}
 }
 void checkNumber(char* token, int br){
@@ -78,6 +90,7 @@ void checkNumber(char* token, int br){
 		}
 		if(left>10 || right>10)
 			printf("LINHA %d: %s\n",br,token);
+		saveToken(token);
 	}
 }
 
@@ -86,7 +99,6 @@ void checkSymbol(char c,int br){
 	bool found = false;
 	if(c!=NULL){
 		for(i=0;i<20 && !found;i++){
-			//printf("i:%d %s\n",i,r_simb[i]);
 			if((strlen(r_simb[i])==1) && (r_simb[i][0]==c)){
 				found = true;
 			}
@@ -96,22 +108,17 @@ void checkSymbol(char c,int br){
 	}
 }
 
-void checkToken(char* token, int br){//tem que corrigir
+void checkToken(char* token, int br){
 	int i,l;
 	bool found = false;
-	//printf("%s\n",r_words[5]);
 	if(token!=NULL){
-		//printf("strlen %s %i\n",token,strlen(token));
 		for(l=0;l<15 && !found;l++){
-			//printf("%d\n",l);
-			//printf("compare %s\n",r_words[l]);
 			for(i=0;i<strlen(token) && strlen(token)==strlen(r_words[l]);i++){
 				if(r_words[l][i]!=token[i]){
 					l++;
 					break;
 				}
 			}
-			//printf("%d %d\n",strlen(token),strlen(r_words[l]));
 			if(i==strlen(token) && i==strlen(r_words[l])){
 				found = true;
 			}
@@ -119,9 +126,9 @@ void checkToken(char* token, int br){//tem que corrigir
 		}
 		if(!found)
 			printf("LINHA %i: %s\n",br,token);
+		saveToken(token);
 	}
 }
-
 
 char* append(char* token, char c) {
 
@@ -132,19 +139,6 @@ char* append(char* token, char c) {
     	token[0] = c;
     }
     else{
-    	/*
-    	char* src = &c;
-    	printf("%s\n",token);
-    	new_str = malloc(sizeof(token)+sizeof(src)+1); // aloca o espaco pra concatencao
-		if(new_str != NULL){
-			new_str[0] = '\0';
-			strcat(new_str,token);
-			strcat(new_str,src);
-		}
-		token = new_str;
-		new_str = NULL;
-		free(new_str);*/
-    	//free(new_str);
     	int i;
     	new_str = token;
     	token = (char*)malloc(sizeof(char)*(strlen(new_str)+2));
@@ -154,9 +148,6 @@ char* append(char* token, char c) {
     	i++;
     	token[i] = '\0';
     }
-
-	//if(token!=NULL)
-		//printf("token:%s\n",token);
 
     return token;
 }
@@ -217,7 +208,6 @@ void validateAlphanumeric(FILE* f, char* token,char c, int* ptr_br,int* ptr_inde
 	if(c=='\n'){
 		(*ptr_br)++;
 		*ptr_comment = false;
-		//printf("LINHA:%d\n",(*ptr_br));
 	}
 	else if(c==' '){
 		//do nothing
@@ -242,23 +232,18 @@ int main(int argc, char **argv) {
 		f = fopen("Debug/exemplo","r");
 		if(f!=NULL){
 			char c;
-			int index = 0;
-			int br=1,i=0;
+			int index = 0,br=1;
 			char *token = NULL;
 			bool comment = false;
 			fseek(f, 0L, SEEK_END);
 			int file_size = ftell(f);
-			//printf("filesize %d\n",file_size);
 			fseek(f,index,SEEK_SET);
-			//printf("LINHA:%d\n",br);
 			while(index < file_size){
-				//printf("seek_cur: %d\n",ftell(f));
 				fscanf(f,"%c",&c);
 				//printf("index:%d char:%c\n",index,c);
 				if(c=='\n'){
 					br++;
 					comment = false;
-					//printf("LINHA:%d\n",br);
 				}
 				else if(c==' ' || c=='\t'){
 					//do nothing
@@ -272,6 +257,7 @@ int main(int argc, char **argv) {
 				else if(isSymbol(c)){
 					//Alterar para a analise sintatica
 					if(c=='>' || c=='<'){
+						char prev = c;
 						index = index + 1;
 						fseek(f,index,SEEK_SET);
 						fscanf(f,"%c",&c);
@@ -296,7 +282,10 @@ int main(int argc, char **argv) {
 			br--;
 			//printf("br: %i\n",br);
 			fclose(f);
-
+			int j;
+			for(j=0;j<tokens_n;j++){
+				//printf("%s\n",tokens[j]);
+			}
 		}
 		else{
 			printf("Arquivo nao encontrado\n");

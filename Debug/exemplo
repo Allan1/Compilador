@@ -4,8 +4,5 @@ REAL a, b.
 a = c*alfa;
 RETORNAR a.
 IMPRIME b
-sçur%Gnsa$trq<<a123.
-]
-
-@ 0000000000,0 <--errado
-@ prova: analise sintatica
+sçur%Gnsa$trq<<a123. @ ç ta contando como dois caracteres
+] @ prova: analise sintatica
