@@ -82,8 +82,10 @@ void checkNumber(char* token, int br){
 					left++;
 			}
 			else{
-				if(token[i]==',')
+				if(token[i]==','){
 					printf("LINHA %d: %s\n",br,token);
+					break;
+				}
 				else
 					right++;
 			}
@@ -135,8 +137,9 @@ char* append(char* token, char c) {
     char * new_str;
 
     if(token==NULL){
-    	token = (char*)malloc(sizeof(char));
+    	token = (char*)malloc(sizeof(char)*2);
     	token[0] = c;
+    	token[1] = '\0';
     }
     else{
     	int i;
@@ -147,79 +150,85 @@ char* append(char* token, char c) {
     	token[i] = c;
     	i++;
     	token[i] = '\0';
+    	//new_str = NULL;
+    	//free(new_str);
     }
 
     return token;
 }
 
-void validateAlphanumeric(FILE* f, char* token,char c, int* ptr_br,int* ptr_index, bool* ptr_comment){
-	if(isUppercase(c)){
-		token = append(token,c);
+void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr_index, bool* ptr_comment){
+	if(isUppercase((*ptr_c))){
+		token = append(token,(*ptr_c));
 		(*ptr_index) = (*ptr_index) + 1;
 		fseek(f,*ptr_index,SEEK_SET);
-		fscanf(f,"%c",&c);
+		fscanf(f,"%c",ptr_c);
 		//printf("index:%d char:%c\n",(*ptr_index),c);
-		while(isAlphanumeric(c) && !feof(f)){
-			token = append(token,c);
+		while(isAlphanumeric((*ptr_c)) && !feof(f)){
+			token = append(token,(*ptr_c));
 			*ptr_index = *ptr_index + 1;
 			fseek(f,*ptr_index,SEEK_SET);
-			fscanf(f,"%c",&c);
+			fscanf(f,"%c",ptr_c);
 			//printf("index:%d char:%c\n",(*ptr_index),c);
 		}
 		checkToken(token,(*ptr_br));
 	}
-	else if(isLowercase(c)){
-		token = append(token,c);
+	else if(isLowercase((*ptr_c))){
+		token = append(token,(*ptr_c));
 		*ptr_index = *ptr_index + 1;
 		fseek(f,*ptr_index,SEEK_SET);
-		fscanf(f,"%c",&c);
+		fscanf(f,"%c",ptr_c);
 		//printf("index:%d char:%c\n",(*ptr_index),c);
-		while(isAlphanumeric(c) && !feof(f)){
-			token = append(token,c);
+		while(isAlphanumeric((*ptr_c)) && !feof(f)){
+			token = append(token,(*ptr_c));
 			*ptr_index = *ptr_index + 1;
 			fseek(f,*ptr_index,SEEK_SET);
-			fscanf(f,"%c",&c);
+			fscanf(f,"%c",ptr_c);
 			//printf("index:%d char:%c\n",(*ptr_index),c);
 		}
 		checkIdentifier(token,(*ptr_br));
 	}
-	else if(isNumber(c)){
+	else if(isNumber((*ptr_c))){
+		bool hascomma=false;
 		//INTEIRO: 1 ou mais caracteres numéricos (0-9) até um limite de 10 caracteres.
 		//REAL: 1 ou mais caracteres numéricos até um limite de 10 caracteres seguidos por
 		//uma vígula, seguida por 1 ou mais caracteres numéricos até um limite de 10 caracteres.
-		token = append(token,c);
+		token = append(token,(*ptr_c));
 		*ptr_index = *ptr_index + 1;
 		fseek(f,*ptr_index,SEEK_SET);
-		fscanf(f,"%c",&c);
+		fscanf(f,"%c",ptr_c);
 		//printf("index:%d char:%c\n",(*ptr_index),c);
-		while(isAlphanumeric(c) && !feof(f)){
-			token = append(token,c);
+		while((isAlphanumeric((*ptr_c)) || ((*ptr_c)==',' && !hascomma)) && !feof(f)){
+			if((*ptr_c)==',')
+				hascomma = true;
+			token = append(token,(*ptr_c));
 			*ptr_index = *ptr_index + 1;
 			fseek(f,*ptr_index,SEEK_SET);
-			fscanf(f,"%c",&c);
+			fscanf(f,"%c",ptr_c);
 			//printf("index:%d char:%c\n",(*ptr_index),c);
 		}
+		hascomma = false;
 		checkNumber(token,(*ptr_br));
 
 	}
 	else{
 		//error
 	}
-	if(c=='\n'){
+	if((*ptr_c)=='\n'){
 		(*ptr_br)++;
 		*ptr_comment = false;
 	}
-	else if(c==' '){
+	else if((*ptr_c)==' '){
 		//do nothing
 	}
-	else if(c=='@'){
+	else if((*ptr_c)=='@'){
 		*ptr_comment = true;
 	}
 	else if(*ptr_comment){
 		//do nothing
 	}
-	else if(isSymbol(c)){
-		checkSymbol(c,(*ptr_br));
+	else if(isSymbol((*ptr_c))){
+		checkSymbol((*ptr_c),(*ptr_br));
 	}
 
 }
@@ -263,7 +272,7 @@ int main(int argc, char **argv) {
 						fscanf(f,"%c",&c);
 						//printf("index:%d char:%c\n",index,c);
 						if(isAlphanumeric(c)){
-							validateAlphanumeric(f,token,c,&br,&index,&comment);
+							validateAlphanumeric(f,token,&c,&br,&index,&comment);
 						}else{
 							checkSymbol(c,br);
 						}
@@ -273,7 +282,7 @@ int main(int argc, char **argv) {
 					}
 				}
 				else{
-					validateAlphanumeric(f,token,c,&br,&index,&comment);
+					validateAlphanumeric(f,token,&c,&br,&index,&comment);
 				}
 				index = index + 1;
 				fseek(f,index,SEEK_SET);
