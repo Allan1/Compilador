@@ -238,7 +238,7 @@ int main(int argc, char **argv) {
 	if(argc > 0){
 		//printf("%s\n",argv[1]);
 		FILE *f;
-		f = fopen("Debug/exemplo","r");
+		f = fopen(argv[1],"r");
 		if(f!=NULL){
 			char c;
 			int index = 0,br=1;
