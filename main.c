@@ -66,35 +66,7 @@ void checkIdentifier(char* token, int br){
 		saveToken(token);
 	}
 }
-void checkNumber(char* token, int br){
-	int i, left=0,right=0;
-	bool comma = false;
-	if(token!=NULL){
-		for(i=0;i<strlen(token);i++){
-			if(!isNumber(token[i]) && token[i]!=','){
-				printf("LINHA %d: %s\n",br,token);
-				break;
-			}
-			if(!comma){
-				if(token[i]==',')
-					comma = true;
-				else
-					left++;
-			}
-			else{
-				if(token[i]==','){
-					printf("LINHA %d: %s\n",br,token);
-					break;
-				}
-				else
-					right++;
-			}
-		}
-		if(left>10 || right>10)
-			printf("LINHA %d: %s\n",br,token);
-		saveToken(token);
-	}
-}
+
 
 void checkSymbol(char c,int br){
 	int i;
@@ -158,6 +130,65 @@ char* append(char* token, char c) {
     return token;
 }
 
+void checkNumber(char* token, int br){
+	int i, left=0,right=0;
+	bool comma = false;
+	int commalocation = 0;
+	if(token!=NULL){
+		for(i=0;i<strlen(token);i++){
+			if(!isNumber(token[i]) && token[i]!=',' && !comma){
+				printf("LINHA %d: %s\n",br,token);
+				break;
+			}
+			if(!comma){
+				if(token[i]==','){
+					comma = true;
+					commalocation = i;
+				}
+				else
+					left++;
+			}
+			else{
+				if(token[i]==','){
+					printf("LINHA %d: %s\n",br,token);
+					break;
+				}
+				else
+					right++;
+			}
+		}
+		if(left>10 || right>10)
+			printf("LINHA %d: %s\n",br,token);
+
+		if(comma){
+
+			for(i = 0;i<strlen(token);i++){ //caso pro lado direito
+				if(!isNumber(token[i])){
+					if(i>commalocation+1){
+						char* aux=NULL;
+						char c;
+						for(i = commalocation+2;i<strlen(token);i++){// ver o porque de somar +2
+							c = token[i];
+							aux = append(aux,c);
+						}
+						printf("LINHA %d: %s\n",br,aux);
+						printf("LINHA %d: %s\n",br,"?");//virgula
+						aux = NULL;
+						for(i =0;i<commalocation;i++){//salva o lado esquerdo no token
+							c = token[i];
+							aux = append(aux,c);
+						}
+						token = aux;
+						commalocation = 0;
+					}
+				}
+			}
+		}
+
+		saveToken(token);
+	}
+}
+
 void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr_index, bool* ptr_comment){
 	if(isUppercase((*ptr_c))){
 		token = append(token,(*ptr_c));
@@ -202,6 +233,8 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 		while((isAlphanumeric((*ptr_c)) || ((*ptr_c)==',' && !hascomma)) && !feof(f)){
 			if((*ptr_c)==',')
 				hascomma = true;
+			if((isUppercase(*ptr_c))||isLowercase(*ptr_c)) // indentifica logo se o erro estiver antes da virgula
+				hascomma =true;
 			token = append(token,(*ptr_c));
 			*ptr_index = *ptr_index + 1;
 			fseek(f,*ptr_index,SEEK_SET);
