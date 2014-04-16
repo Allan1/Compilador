@@ -106,7 +106,8 @@ void checkSymbol(char c,int br){
 			}
 		}
 		if(!found)
-			printf("LINHA %d: %c\n",br,c);
+			//printf("LINHA %d: %c\n",br,c);
+			printf("LINHA %d: ?\n",br);
 	}
 }
 
