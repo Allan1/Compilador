@@ -13,15 +13,15 @@
 static char* r_words[] = {"BINARIO","CONTINUAR","E","ENQUANTO","INTEIRO","IMPRIMIR","LER","NAO","OU","PARAR","REAL","RETORNAR","SE","SENAO","SIM"};
 static char* r_simb[] = {"+","-","*","/",">","<","[","]","=","<>","<<",".",";","@","(",")","{","}",">=","<="};
 char** tokens;
-int tokens_n = 0;
+int tokens_counter = 0;
 
 void saveToken(char* token){
-	tokens_n++;
+	tokens_counter++;
 	if(tokens==NULL)
-		tokens = (char**)malloc(sizeof(char*)*tokens_n);
+		tokens = (char**)malloc(sizeof(char*)*tokens_counter);
 	else
-		tokens = (char**)realloc(tokens,sizeof(char*)*tokens_n);
-	tokens[tokens_n-1] = token;
+		tokens = (char**)realloc(tokens,sizeof(char*)*tokens_counter);
+	tokens[tokens_counter-1] = token;
 }
 
 bool isNumber(char c){
@@ -54,6 +54,27 @@ bool isSymbol(char c){
 	return false;
 }
 
+bool isInt(char* str){
+	int i;
+	for(i=0;i<strlen(str) && i!='\0';i++){
+		if(!isNumber(str[i]))
+			return false;
+	}
+	return true;
+}
+
+bool isIdentifier(char* token){
+	int i;
+	if(token!=NULL){
+		for(i=0;i<strlen(token);i++){
+			if(!isLowercase(token[i]) && !isNumber(token[i])){
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
 void checkIdentifier(char* token, int br){
 	int i;
 	if(token!=NULL){
@@ -81,6 +102,26 @@ void checkSymbol(char c,int br){
 			//printf("LINHA %d: %c\n",br,c);
 			printf("LINHA %d: ?\n",br);
 	}
+}
+
+bool isReservedWord(char* token){
+	int i,l;
+	bool found = false;
+	if(token!=NULL){
+		for(l=0;l<15 && !found;l++){
+			for(i=0;i<strlen(token) && strlen(token)==strlen(r_words[l]);i++){
+				if(r_words[l][i]!=token[i]){
+					l++;
+					break;
+				}
+			}
+			if(i==strlen(token) && i==strlen(r_words[l])){
+				found = true;
+			}
+			i=0;
+		}
+	}
+	return found;
 }
 
 void checkToken(char* token, int br){
@@ -133,18 +174,15 @@ char* append(char* token, char c) {
 void checkNumber(char* token, int br){
 	int i, left=0,right=0;
 	bool comma = false;
-	int commalocation = 0;
 	if(token!=NULL){
 		for(i=0;i<strlen(token);i++){
-			if(!isNumber(token[i]) && token[i]!=',' && !comma){
+			if(!isNumber(token[i]) && token[i]!=','){
 				printf("LINHA %d: %s\n",br,token);
 				break;
 			}
 			if(!comma){
-				if(token[i]==','){
+				if(token[i]==',')
 					comma = true;
-					commalocation = i;
-				}
 				else
 					left++;
 			}
@@ -159,32 +197,6 @@ void checkNumber(char* token, int br){
 		}
 		if(left>10 || right>10)
 			printf("LINHA %d: %s\n",br,token);
-
-		if(comma){
-
-			for(i = 0;i<strlen(token);i++){ //caso pro lado direito
-				if(!isNumber(token[i])){
-					if(i>commalocation+1){
-						char* aux=NULL;
-						char c;
-						for(i = commalocation+2;i<strlen(token);i++){// ver o porque de somar +2
-							c = token[i];
-							aux = append(aux,c);
-						}
-						printf("LINHA %d: %s\n",br,aux);
-						printf("LINHA %d: %s\n",br,"?");//virgula
-						aux = NULL;
-						for(i =0;i<commalocation;i++){//salva o lado esquerdo no token
-							c = token[i];
-							aux = append(aux,c);
-						}
-						token = aux;
-						commalocation = 0;
-					}
-				}
-			}
-		}
-
 		saveToken(token);
 	}
 }
@@ -221,6 +233,73 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 		checkIdentifier(token,(*ptr_br));
 	}
 	else if(isNumber((*ptr_c))){
+	    bool prev_comma = false;
+	    int count_comma = 0;
+	    int i = 0,j,next;
+	    char** n_tokens = (char**)malloc(sizeof(char*)*i);
+	    n_tokens[i] = append(n_tokens[i],(*ptr_c));
+
+	    *ptr_index = *ptr_index + 1;
+	    fseek(f,*ptr_index,SEEK_SET);
+	    fscanf(f,"%c",ptr_c);
+
+	    while((isAlphanumeric((*ptr_c)) || ((*ptr_c)==',')) && !feof(f)){
+	        if((*ptr_c)==','){
+	            count_comma++;
+	            prev_comma = true;
+	        }
+	        else{
+	            if(prev_comma){
+	                i++;
+	                n_tokens = (char**)realloc(n_tokens,sizeof(char*)*i);
+
+	                prev_comma = false;
+	            }
+	            n_tokens[i] = append(n_tokens[i],(*ptr_c));
+	        }
+
+	        *ptr_index = *ptr_index + 1;
+	        fseek(f,*ptr_index,SEEK_SET);
+	        fscanf(f,"%c",ptr_c);
+	    }
+
+	    for (j = 0; j < i; j++) {
+	        next = j+1;
+	        if (next < i){ //Não é o último
+	            if (isInt(n_tokens[j]) && isInt(n_tokens[next])){ //00,00 | 0000000000000,00 | 00,0000000000000
+	            	char* float_number = append(n_tokens[j],',');
+	            	int k;
+	            	for(k=0;k<strlen(n_tokens[next]);k++)
+	            		float_number = append(float_number,n_tokens[next][k]);
+	                checkNumber(float_number,(*ptr_br));
+	                j=j+2; //pula o próximo
+	                break;
+	            }
+	            else if(isInt(n_tokens[j])){ // 0,asd | 0,0a | 0,REAL | 00000000000000,a
+	                checkNumber(n_tokens[j],(*ptr_br));
+	                printf("LINHA %d: ?\n",(*ptr_br));
+	            }
+	            else if(!isIdentifier(n_tokens[j]) && !isReservedWord(n_tokens[j])){ //Não é variavel, função ou palavra reservada
+	            	printf("LINHA %d: %s\n",(*ptr_br),n_tokens[j]);
+	                printf("LINHA %d: ?\n",(*ptr_br));
+	            }
+	        }
+	        else{ //É o último
+	            if(isInt(n_tokens[j])){ // 00000 | 0000000000000000
+	                checkNumber(n_tokens[j],(*ptr_br));
+	            }
+	            else if(!isIdentifier(n_tokens[j]) && !isReservedWord(n_tokens[j])){ //Não é variavel, função ou palavra reservada
+	                printf("LINHA %d: %s\n",(*ptr_br),n_tokens[j]);
+	            }
+	        }
+	    }
+	    if (count_comma > i){ // último caracter lido antes de ler um divisor('\br',' ',simbolos) foi uma virgula(',')
+	    	printf("LINHA %d: ?\n",(*ptr_br));
+	    }
+
+	}
+	/*
+	else if(isNumber((*ptr_c))){
 		bool hascomma=false;
 		//INTEIRO: 1 ou mais caracteres numéricos (0-9) até um limite de 10 caracteres.
 		//REAL: 1 ou mais caracteres numéricos até um limite de 10 caracteres seguidos por
@@ -230,6 +309,8 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 		fseek(f,*ptr_index,SEEK_SET);
 		fscanf(f,"%c",ptr_c);
 		//printf("index:%d char:%c\n",(*ptr_index),c);
+		//entradas teste: 00000,000000m e 0m00000,00000000
+
 		while((isAlphanumeric((*ptr_c)) || ((*ptr_c)==',' && !hascomma)) && !feof(f)){
 			if((*ptr_c)==',')
 				hascomma = true;
@@ -245,6 +326,7 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 		checkNumber(token,(*ptr_br));
 
 	}
+	*/
 	else{
 		//error
 	}
@@ -326,7 +408,7 @@ int main(int argc, char **argv) {
 			//printf("br: %i\n",br);
 			fclose(f);
 			int j;
-			for(j=0;j<tokens_n;j++){
+			for(j=0;j<tokens_counter;j++){
 				//printf("%s\n",tokens[j]);
 			}
 		}
