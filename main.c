@@ -55,8 +55,8 @@ bool isSymbol(char c){
 }
 
 bool isInt(char* str){
-	int i;
-	for(i=0;i<strlen(str) && i!='\0';i++){
+	int i = 0;
+	for(i=0;i<strlen(str);i++){
 		if(!isNumber(str[i]))
 			return false;
 	}
@@ -66,7 +66,9 @@ bool isInt(char* str){
 bool isIdentifier(char* token){
 	int i;
 	if(token!=NULL){
-		for(i=0;i<strlen(token);i++){
+		if(!isLowercase(token[0]))
+			return false;
+		for(i=1;i<strlen(token);i++){
 			if(!isLowercase(token[i]) && !isNumber(token[i])){
 				return false;
 			}
@@ -164,8 +166,8 @@ char* append(char* token, char c) {
     	token[i] = c;
     	i++;
     	token[i] = '\0';
-    	//new_str = NULL;
-    	//free(new_str);
+    	new_str = NULL;
+    	free(new_str);
     }
 
     return token;
@@ -236,7 +238,8 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 	    bool prev_comma = false;
 	    int count_comma = 0;
 	    int i = 0,j,next;
-	    char** n_tokens = (char**)malloc(sizeof(char*)*i);
+	    char** n_tokens = (char**)malloc(sizeof(char*));
+	    n_tokens[i] = NULL;
 	    n_tokens[i] = append(n_tokens[i],(*ptr_c));
 
 	    *ptr_index = *ptr_index + 1;
@@ -251,8 +254,8 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 	        else{
 	            if(prev_comma){
 	                i++;
-	                n_tokens = (char**)realloc(n_tokens,sizeof(char*)*i);
-
+	                n_tokens = (char**)realloc(n_tokens,sizeof(char*)*(i+1));
+	                n_tokens[i] = NULL;
 	                prev_comma = false;
 	            }
 	            n_tokens[i] = append(n_tokens[i],(*ptr_c));
@@ -263,9 +266,9 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 	        fscanf(f,"%c",ptr_c);
 	    }
 
-	    for (j = 0; j < i; j++) {
+	    for (j = 0; j <= i; j++) {
 	        next = j+1;
-	        if (next < i){ //Não é o último
+	        if (next <= i){ //Não é o último
 	            if (isInt(n_tokens[j]) && isInt(n_tokens[next])){ //00,00 | 0000000000000,00 | 00,0000000000000
 	            	char* float_number = append(n_tokens[j],',');
 	            	int k;
@@ -273,6 +276,8 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 	            		float_number = append(float_number,n_tokens[next][k]);
 	                checkNumber(float_number,(*ptr_br));
 	                j=j+2; //pula o próximo
+	                if(j<=i)
+	                	printf("LINHA %d: ?\n",(*ptr_br));
 	                break;
 	            }
 	            else if(isInt(n_tokens[j])){ // 0,asd | 0,0a | 0,REAL | 00000000000000,a
@@ -296,37 +301,9 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 	    if (count_comma > i){ // último caracter lido antes de ler um divisor('\br',' ',simbolos) foi uma virgula(',')
 	    	printf("LINHA %d: ?\n",(*ptr_br));
 	    }
-
+	    n_tokens = NULL;
+	    free(n_tokens);
 	}
-	/*
-	else if(isNumber((*ptr_c))){
-		bool hascomma=false;
-		//INTEIRO: 1 ou mais caracteres numéricos (0-9) até um limite de 10 caracteres.
-		//REAL: 1 ou mais caracteres numéricos até um limite de 10 caracteres seguidos por
-		//uma vígula, seguida por 1 ou mais caracteres numéricos até um limite de 10 caracteres.
-		token = append(token,(*ptr_c));
-		*ptr_index = *ptr_index + 1;
-		fseek(f,*ptr_index,SEEK_SET);
-		fscanf(f,"%c",ptr_c);
-		//printf("index:%d char:%c\n",(*ptr_index),c);
-		//entradas teste: 00000,000000m e 0m00000,00000000
-
-		while((isAlphanumeric((*ptr_c)) || ((*ptr_c)==',' && !hascomma)) && !feof(f)){
-			if((*ptr_c)==',')
-				hascomma = true;
-			if((isUppercase(*ptr_c))||isLowercase(*ptr_c)) // indentifica logo se o erro estiver antes da virgula
-				hascomma =true;
-			token = append(token,(*ptr_c));
-			*ptr_index = *ptr_index + 1;
-			fseek(f,*ptr_index,SEEK_SET);
-			fscanf(f,"%c",ptr_c);
-			//printf("index:%d char:%c\n",(*ptr_index),c);
-		}
-		hascomma = false;
-		checkNumber(token,(*ptr_br));
-
-	}
-	*/
 	else{
 		//error
 	}
@@ -354,6 +331,7 @@ int main(int argc, char **argv) {
 	if(argc > 0){
 		//printf("%s\n",argv[1]);
 		FILE *f;
+		//f = fopen("Debug/exemplos/exemplo2.c141","r");
 		f = fopen(argv[1],"r");
 		if(f!=NULL){
 			char c;
