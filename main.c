@@ -94,16 +94,14 @@ void checkIdentifier(char* token, int br){
 void checkSymbol(char c,int br){
 	int i;
 	bool found = false;
-	if(c!=NULL){
-		for(i=0;i<20 && !found;i++){
-			if((strlen(r_simb[i])==1) && (r_simb[i][0]==c)){
-				found = true;
-			}
+	for(i=0;i<20 && !found;i++){
+		if((strlen(r_simb[i])==1) && (r_simb[i][0]==c)){
+			found = true;
 		}
-		if(!found)
-			//printf("LINHA %d: %c\n",br,c);
-			printf("LINHA %d: ?\n",br);
 	}
+	if(!found)
+		//printf("LINHA %d: %c\n",br,c);
+		printf("LINHA %d: ?\n",br);
 }
 
 bool isReservedWord(char* token){
@@ -328,8 +326,8 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 
 int main(int argc, char **argv) {
 
-	if(argc > 0){
-		//printf("%s\n",argv[1]);
+	if(argc > 1){
+		//printf("%d\n",argc);
 		FILE *f;
 		//f = fopen("Debug/exemplos/exemplo2.c141","r");
 		f = fopen(argv[1],"r");
@@ -360,7 +358,7 @@ int main(int argc, char **argv) {
 				else if(isSymbol(c)){
 					//Alterar para a analise sintatica
 					if(c=='>' || c=='<'){
-						char prev = c;
+						//char prev = c;
 						index = index + 1;
 						fseek(f,index,SEEK_SET);
 						fscanf(f,"%c",&c);
