@@ -10,10 +10,19 @@
 #include <stdio.h>
 #include <string.h>
 
+typedef struct Stack {
+    int state;
+    struct Stack* prev;
+} Stack;
+
 static char* r_words[] = {"BINARIO","CONTINUAR","E","ENQUANTO","INTEIRO","IMPRIMIR","LER","NAO","OU","PARAR","REAL","RETORNAR","SE","SENAO","SIM"};
 static char* r_simb[] = {"+","-","*","/",">","<","[","]","=","<>","<<",".",";","@","(",")","{","}",">=","<="};
 char** tokens;
 int tokens_counter = 0;
+bool lexic_ok = true;
+Stack *stack = NULL;
+char* table[150][71];
+char* vocabulary[71];
 
 void saveToken(char* token){
 	tokens_counter++;
@@ -83,6 +92,7 @@ void checkIdentifier(char* token, int br){
 		for(i=0;i<strlen(token);i++){
 			if(!isLowercase(token[i]) && !isNumber(token[i])){
 				printf("LINHA %d: %s\n",br,token);
+				lexic_ok = false;
 				break;
 			}
 		}
@@ -99,9 +109,11 @@ void checkSymbol(char c,int br){
 			found = true;
 		}
 	}
-	if(!found)
+	if(!found){
 		//printf("LINHA %d: %c\n",br,c);
 		printf("LINHA %d: ?\n",br);
+		lexic_ok = false;
+	}
 }
 
 bool isReservedWord(char* token){
@@ -140,8 +152,10 @@ void checkToken(char* token, int br){
 			}
 			i=0;
 		}
-		if(!found)
+		if(!found){
 			printf("LINHA %i: %s\n",br,token);
+			lexic_ok = false;
+		}
 		saveToken(token);
 	}
 }
@@ -178,6 +192,7 @@ void checkNumber(char* token, int br){
 		for(i=0;i<strlen(token);i++){
 			if(!isNumber(token[i]) && token[i]!=','){
 				printf("LINHA %d: %s\n",br,token);
+				lexic_ok = false;
 				break;
 			}
 			if(!comma){
@@ -189,14 +204,17 @@ void checkNumber(char* token, int br){
 			else{
 				if(token[i]==','){
 					printf("LINHA %d: %s\n",br,token);
+					lexic_ok = false;
 					break;
 				}
 				else
 					right++;
 			}
 		}
-		if(left>10 || right>10)
+		if(left>10 || right>10){
 			printf("LINHA %d: %s\n",br,token);
+			lexic_ok = false;
+		}
 		saveToken(token);
 	}
 }
@@ -274,17 +292,21 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 	            		float_number = append(float_number,n_tokens[next][k]);
 	                checkNumber(float_number,(*ptr_br));
 	                j=j+2; //pula o próximo
-	                if(j<=i)
+	                if(j<=i){
 	                	printf("LINHA %d: ?\n",(*ptr_br));
+	                	lexic_ok = false;
+	                }
 	                break;
 	            }
 	            else if(isInt(n_tokens[j])){ // 0,asd | 0,0a | 0,REAL | 00000000000000,a
 	                checkNumber(n_tokens[j],(*ptr_br));
 	                printf("LINHA %d: ?\n",(*ptr_br));
+	                lexic_ok = false;
 	            }
 	            else if(!isIdentifier(n_tokens[j]) && !isReservedWord(n_tokens[j])){ //Não é variavel, função ou palavra reservada
 	            	printf("LINHA %d: %s\n",(*ptr_br),n_tokens[j]);
 	                printf("LINHA %d: ?\n",(*ptr_br));
+	                lexic_ok = false;
 	            }
 	        }
 	        else{ //É o último
@@ -293,11 +315,13 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 	            }
 	            else if(!isIdentifier(n_tokens[j]) && !isReservedWord(n_tokens[j])){ //Não é variavel, função ou palavra reservada
 	                printf("LINHA %d: %s\n",(*ptr_br),n_tokens[j]);
+	                lexic_ok = false;
 	            }
 	        }
 	    }
 	    if (count_comma > i){ // último caracter lido antes de ler um divisor('\br',' ',simbolos) foi uma virgula(',')
 	    	printf("LINHA %d: ?\n",(*ptr_br));
+	    	lexic_ok = false;
 	    }
 	    n_tokens = NULL;
 	    free(n_tokens);
@@ -324,13 +348,41 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 
 }
 
+void push(int state){
+	Stack *aux= (Stack*)malloc(sizeof(Stack));
+	aux->state = state;
+	aux->prev = stack;
+	printf("push %d\n",state);
+	stack = aux;
+	//free(aux);
+}
+
+Stack* pop(){
+	if(stack!=NULL){
+		Stack *top = stack;
+		printf("pop %d\n",top->state);
+		stack = top->prev;
+		return top;
+	}
+	return NULL;
+}
+
+Stack* get(){
+	if(stack!=NULL){
+		Stack *top = stack;
+		printf("get %d\n",top->state);
+		return top;
+	}
+	return NULL;
+}
+
 int main(int argc, char **argv) {
 
-	if(argc > 1){
+	if(argc >= 1){
 		//printf("%d\n",argc);
 		FILE *f;
-		//f = fopen("Debug/exemplos/exemplo2.c141","r");
-		f = fopen(argv[1],"r");
+		f = fopen("Debug/exemplos/exemplo3.c141","r");
+		//f = fopen(argv[1],"r");
 		if(f!=NULL){
 			char c;
 			int index = 0,br=1;
@@ -389,11 +441,96 @@ int main(int argc, char **argv) {
 			}
 		}
 		else{
+			lexic_ok = false;
 			printf("Arquivo nao encontrado\n");
 			exit(1);
 		}
+
+		if(lexic_ok){
+			//analise sintatica
+			stack = (Stack*)malloc(sizeof(Stack));
+			stack->state = 0;
+			stack->prev = NULL;
+			FILE *fv;
+			//abre tabela.txt
+			fv = fopen("Debug/tabela.txt","r");
+			if(fv!=NULL){
+				char c;
+				int v_counter = 0,i;
+				fseek(fv,0,SEEK_SET);
+				fscanf(fv,"%c",&c);
+				char* str = (char*)malloc(sizeof(char));
+				str = append(NULL,c);
+				//carrega vocabulario
+				while(c!='\n'){
+					fscanf(fv,"%c",&c);
+					if(c == ' '){
+						//adiciona str no vocabulario
+						vocabulary[v_counter] = (char*)malloc(sizeof(char));
+						vocabulary[v_counter] = str;
+						v_counter++;
+						str = NULL;
+					}
+					else{
+						str = append(str,c);
+					}
+				}
+				if(c=='\n'){
+					vocabulary[v_counter] = str;
+					v_counter++;
+				}
+				for(i=0;i<71;i++){
+					printf("%s\n",vocabulary[i]);
+				}
+				str = NULL;
+				fscanf(fv,"%c",&c);
+				while(c !=' ')
+					fscanf(fv,"%c",&c);//e0
+				fscanf(fv,"%c",&c);
+				int row = 0, col = 0;
+				while(fscanf(fv,"%c",&c) != EOF){
+					printf("%c\n",c);
+
+					while(c!='\n' && c!= EOF){
+						printf("%c\n",c);
+						str = append(str,c);
+						fscanf(fv,"%c",&c);
+						while(c!=' '){
+							str = append(str,c);
+							fscanf(fv,"%c",&c);
+						}
+						if(c==' ')
+							fscanf(fv,"%c",&c);
+						table[row][col] = str;
+						str = NULL;
+						col++;
+					}
+
+					if(c=='\n'){
+						row++;
+						col = 0;
+					}
+				}
+				printf("fclose\n");
+				fclose(fv);
+
+				int j;
+				for(i=0;i<150;i++){
+					for(j=0;j<71;j++){
+						printf("%s ",table[i][j]);
+					}
+					printf("\n");
+				}
+			}
+			else{
+				printf("tabela.txt not found\n");
+			}
+
+
+
+		}
 	}
+
 
 	return 0;
 }
-
