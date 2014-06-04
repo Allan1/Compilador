@@ -480,7 +480,7 @@ int main(int argc, char **argv) {
 					v_counter++;
 				}
 				for(i=0;i<71;i++){
-					printf("%s\n",vocabulary[i]);
+					//printf("%s\n",vocabulary[i]);
 				}
 				str = NULL;
 				fscanf(fv,"%c",&c);
@@ -488,20 +488,29 @@ int main(int argc, char **argv) {
 					fscanf(fv,"%c",&c);//e0
 				fscanf(fv,"%c",&c);
 				int row = 0, col = 0;
-				while(fscanf(fv,"%c",&c) != EOF){
-					printf("%c\n",c);
+
+				while(c != EOF){
+					//printf("%c\n",c);
 
 					while(c!='\n' && c!= EOF){
-						printf("%c\n",c);
+						//printf("%c\n",c);
+						//printf("%s ,",str);
 						str = append(str,c);
+						//printf("%s ,",str);
 						fscanf(fv,"%c",&c);
 						while(c!=' '){
 							str = append(str,c);
 							fscanf(fv,"%c",&c);
+
 						}
+						//printf("%s ,",str);
 						if(c==' ')
 							fscanf(fv,"%c",&c);
+
+						if(c=='\r')
+							fscanf(fv,"%c",&c);
 						table[row][col] = str;
+						//printf("%s ",str);
 						str = NULL;
 						col++;
 					}
@@ -509,7 +518,14 @@ int main(int argc, char **argv) {
 					if(c=='\n'){
 						row++;
 						col = 0;
+						fscanf(fv,"%c",&c);
+						while(c !=' ' && c!= '\n')
+							fscanf(fv,"%c",&c);//en
+
+
+							//printf("\n");
 					}
+					fscanf(fv,"%c",&c);
 				}
 				printf("fclose\n");
 				fclose(fv);
