@@ -21,8 +21,8 @@ char** tokens;
 int tokens_counter = 0;
 bool lexic_ok = true;
 Stack *stack = NULL;
-char* table[150][71];
-char* vocabulary[71];
+char* table[150][72];
+char* vocabulary[72];
 
 void saveToken(char* token){
 	tokens_counter++;
@@ -459,14 +459,14 @@ int main(int argc, char **argv) {
 				int v_counter = 0,i;
 				fseek(fv,0,SEEK_SET);
 				fscanf(fv,"%c",&c);
-				char* str = (char*)malloc(sizeof(char));
+				char* str;
 				str = append(NULL,c);
 				//carrega vocabulario
 				while(c!='\n'){
 					fscanf(fv,"%c",&c);
 					if(c == ' '){
 						//adiciona str no vocabulario
-						vocabulary[v_counter] = (char*)malloc(sizeof(char));
+						//vocabulary[v_counter] = (char*)malloc(sizeof(char));
 						vocabulary[v_counter] = str;
 						v_counter++;
 						str = NULL;
@@ -476,11 +476,11 @@ int main(int argc, char **argv) {
 					}
 				}
 				if(c=='\n'){
-					vocabulary[v_counter] = str;
-					v_counter++;
+					//vocabulary[v_counter] = str;
+					//v_counter++;
 				}
-				for(i=0;i<71;i++){
-					//printf("%s\n",vocabulary[i]);
+				for(i=0;i<72;i++){
+					printf("%s\n",vocabulary[i]);
 				}
 				str = NULL;
 				fscanf(fv,"%c",&c);
@@ -489,28 +489,33 @@ int main(int argc, char **argv) {
 				fscanf(fv,"%c",&c);
 				int row = 0, col = 0;
 
-				while(c != EOF){
-					//printf("%c\n",c);
+				while(c != EOF && col <= 72){
 
-					while(c!='\n' && c!= EOF){
+					while(c!='\n' && c!= EOF && col <= 72){
 						//printf("%c\n",c);
 						//printf("%s ,",str);
 						str = append(str,c);
 						//printf("%s ,",str);
 						fscanf(fv,"%c",&c);
+						printf("c2:%c\n",c);
 						while(c!=' '){
 							str = append(str,c);
 							fscanf(fv,"%c",&c);
+							printf("c3:%c\n",c);
 
 						}
 						//printf("%s ,",str);
-						if(c==' ')
+						if(c==' '){
 							fscanf(fv,"%c",&c);
+							printf("c2:%c\n",c);
+						}
 
-						if(c=='\r')
+						if(c=='\r'){
 							fscanf(fv,"%c",&c);
+							printf("c2:%c\n",c);
+						}
 						table[row][col] = str;
-						//printf("%s ",str);
+						printf("s:%s ",table[row][col]);
 						str = NULL;
 						col++;
 					}
@@ -519,22 +524,26 @@ int main(int argc, char **argv) {
 						row++;
 						col = 0;
 						fscanf(fv,"%c",&c);
-						while(c !=' ' && c!= '\n')
+						printf("c2:%c\n",c);
+						while(c !=' ' && c!= '\n'){
 							fscanf(fv,"%c",&c);//en
-
+							printf("c4:%c\n",c);
+						}
 
 							//printf("\n");
 					}
 					fscanf(fv,"%c",&c);
+					printf("c1:%c\n",c);
 				}
 				printf("fclose\n");
 				fclose(fv);
 
-				int j;
+				int j = 0;
 				for(i=0;i<150;i++){
-					for(j=0;j<71;j++){
+					for(j=0;j<72;j++){
 						printf("%s ",table[i][j]);
 					}
+					j=0;
 					printf("\n");
 				}
 			}
@@ -546,7 +555,7 @@ int main(int argc, char **argv) {
 
 		}
 	}
-
+	//TODO: ver colé do loop
 
 	return 0;
 }
