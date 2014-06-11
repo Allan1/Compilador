@@ -12,6 +12,7 @@
 
 typedef struct Stack {
     int state;
+    char *str;
     struct Stack* prev;
 } Stack;
 
@@ -20,7 +21,8 @@ static char* r_simb[] = {"+","-","*","/",">","<","[","]","=","<>","<<",".",";","
 char** tokens;
 int tokens_counter = 0;
 bool lexic_ok = true;
-Stack *stack = NULL;
+Stack *states_stack = NULL;
+Stack *tokens_stack = NULL;
 char* table[150][72];
 char* vocabulary[72];
 
@@ -113,6 +115,12 @@ void checkSymbol(char c,int br){
 		//printf("LINHA %d: %c\n",br,c);
 		printf("LINHA %d: ?\n",br);
 		lexic_ok = false;
+	}
+	else{
+		char *aux = (char*)malloc(sizeof(char)*2);
+		aux[0] = c;
+		aux[1] = '\0';
+		saveToken(aux);
 	}
 }
 
@@ -348,16 +356,20 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 
 }
 
-void push(int state){
+void push(Stack **stack,int state, char* str){
 	Stack *aux= (Stack*)malloc(sizeof(Stack));
 	aux->state = state;
-	aux->prev = stack;
+	aux->prev = *stack;
+	if(*stack !=NULL){
+		printf("prev:%s\n",(*stack)->str);
+	}
+	aux->str = str;
 	printf("push %d\n",state);
-	stack = aux;
+	*stack = aux;
 	//free(aux);
 }
 
-Stack* pop(){
+Stack* pop(Stack *stack){
 	if(stack!=NULL){
 		Stack *top = stack;
 		printf("pop %d\n",top->state);
@@ -367,7 +379,7 @@ Stack* pop(){
 	return NULL;
 }
 
-Stack* get(){
+Stack* get(Stack *stack){
 	if(stack!=NULL){
 		Stack *top = stack;
 		printf("get %d\n",top->state);
@@ -376,6 +388,62 @@ Stack* get(){
 	return NULL;
 }
 
+int posInVocabulary(char* token){
+	int i,l;
+	int pos = -1;
+	if(token!=NULL){
+		for(l=0;l<15 && pos==-1;l++){
+			for(i=0;i<strlen(token) && strlen(token)==strlen(vocabulary[l]);i++){
+				if(vocabulary[l][i]!=token[i]){
+					l++;
+					break;
+				}
+			}
+			if(i==strlen(token) && i==strlen(vocabulary[l])){
+				pos = l;
+			}
+			i=0;
+		}
+	}
+	return pos;
+}
+
+bool isTokenNumber(char* token){
+	int i, left=0,right=0;
+	bool comma = false;
+	bool lexic_ok = false;
+	if(token!=NULL){
+		for(i=0;i<strlen(token);i++){
+			if(!isNumber(token[i]) && token[i]!=','){
+				lexic_ok = false;
+				break;
+			}
+			if(!comma){
+				if(token[i]==',')
+					comma = true;
+				else
+					left++;
+			}
+			else{
+				if(token[i]==','){
+					lexic_ok = false;
+					break;
+				}
+				else
+					right++;
+			}
+		}
+		if(left>10 || right>10){
+			lexic_ok = false;
+		}
+	}
+
+	return lexic_ok;
+
+}
+
+
+
 int main(int argc, char **argv) {
 
 	if(argc >= 1){
@@ -383,6 +451,10 @@ int main(int argc, char **argv) {
 		FILE *f;
 		f = fopen("Debug/exemplos/exemplo3.c141","r");
 		//f = fopen(argv[1],"r");
+
+		/*
+		 * Inicio da analise lexica
+		 * */
 		if(f!=NULL){
 			char c;
 			int index = 0,br=1;
@@ -445,12 +517,13 @@ int main(int argc, char **argv) {
 			printf("Arquivo nao encontrado\n");
 			exit(1);
 		}
+		/*Fim da analise lexica
+		 * */
 
+
+		/*Inicio analise sintatica
+		 * */
 		if(lexic_ok){
-			//analise sintatica
-			stack = (Stack*)malloc(sizeof(Stack));
-			stack->state = 0;
-			stack->prev = NULL;
 			FILE *fv;
 			//abre tabela.txt
 			fv = fopen("Debug/tabela.txt","r");
@@ -482,7 +555,7 @@ int main(int argc, char **argv) {
 					//v_counter++;
 				}
 				for(i=0;i<72;i++){
-					printf("%s\n",vocabulary[i]);
+					//printf("%s\n",vocabulary[i]);
 				}
 				str = NULL;
 				fscanf(fv,"%c",&c);
@@ -554,6 +627,87 @@ int main(int argc, char **argv) {
 					printf("\n");
 				}
 				*/
+				states_stack = (Stack*)malloc(sizeof(Stack));
+				states_stack->state = 0;
+				states_stack->str = NULL;
+				states_stack->prev = NULL;
+
+				tokens_stack = (Stack*)malloc(sizeof(Stack));
+				tokens_stack->state = 0;
+				tokens_stack->str = NULL;
+				tokens_stack->prev = NULL;
+
+				push(&tokens_stack,-1,"$");
+				for(j=tokens_counter-1;j>=0;j--){
+					printf("t:%s\n",tokens[j]);
+					push(&tokens_stack,-1,tokens[j]);
+				}
+				bool accept = false;
+				bool error = false;
+				Stack *top = get(tokens_stack);
+				while (top != NULL){
+					printf("print %s\n",top->str);
+					top = top->prev;
+				}
+
+				/*
+				 * Algoritmo sintatico LR
+				 * */
+				int current_state = 0;
+				Stack *current_token = pop(tokens_stack);
+				int vocabulary_pos = -1;
+				while(!accept && !error){
+					char *type;
+					if(isReservedWord(current_token->str)){
+						vocabulary_pos = posInVocabulary(current_token->str);
+						type = current_token->str;
+					}
+					else if(isTokenNumber(current_token->str)){
+						vocabulary_pos = posInVocabulary("CONSTANTE");
+						type = "CONSTANTE";
+					}
+					else if(isIdentifier(current_token->str) && current_token->prev->str[0] == '('){
+						vocabulary_pos = posInVocabulary("FUNCAO");
+						type = "FUNCAO";
+					}
+					else if(isIdentifier(current_token->str) && current_token->prev->str[0] != '('){
+						vocabulary_pos = posInVocabulary("VARIAVEL");
+						type = "VARIAVEL";
+					}
+					else{
+						vocabulary_pos = posInVocabulary(current_token->str);
+						type = current_token->str;
+					}
+					printf("pos:%d\n",vocabulary_pos);
+					if(vocabulary_pos!=-1){
+						printf("table:%s\n",table[current_state][vocabulary_pos]);
+						char* cell = table[current_state][vocabulary_pos];
+						if (cell[0] == 'X'){
+							error = true;
+						}
+						else if(cell[0] == 'e'){
+							push(&states_stack,current_state,type);
+							char* state_name;
+							for(j=1;j<strlen(cell);j++){
+								state_name = append(state_name,cell[j]);
+							}
+							current_state = atoi(state_name);
+						}
+						else if(cell[0] == 'r'){
+							char* redu_name;
+							for(j=1;j<strlen(cell);j++){
+								redu_name = append(redu_name,cell[j]);
+							}
+							int reduction = atoi(redu_name);
+
+							//TODO: importar tabela de reduções
+						}
+						else if(cell[0] == 'a'){
+							accept = true;
+						}
+					}
+					//TODO: desempilhar token
+				}
 			}
 			else{
 				printf("tabela.txt not found\n");
