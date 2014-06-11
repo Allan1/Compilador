@@ -457,6 +457,8 @@ int main(int argc, char **argv) {
 			if(fv!=NULL){
 				char c;
 				int v_counter = 0,i;
+				fseek(fv, 0L, SEEK_END);
+				long int file_size = ftell(fv);
 				fseek(fv,0,SEEK_SET);
 				fscanf(fv,"%c",&c);
 				char* str;
@@ -489,33 +491,34 @@ int main(int argc, char **argv) {
 				fscanf(fv,"%c",&c);
 				int row = 0, col = 0;
 
-				while(c != EOF && col <= 72){
+				while(c != EOF && col <= 72 && ftell(fv) < file_size){
 
-					while(c!='\n' && c!= EOF && col <= 72){
+					while(c!='\n' && c!= EOF && col <= 72 && ftell(fv) < file_size){
 						//printf("%c\n",c);
 						//printf("%s ,",str);
 						str = append(str,c);
 						//printf("%s ,",str);
 						fscanf(fv,"%c",&c);
-						printf("c2:%c\n",c);
-						while(c!=' '){
+						//printf("c2:%c\n",c);
+						while(c!=' '  && ftell(fv) < file_size){
 							str = append(str,c);
 							fscanf(fv,"%c",&c);
-							printf("c3:%c\n",c);
+							//printf("c3:%c\n",c);
+							//printf("%lu %lu\n",ftell(fv),file_size);
 
 						}
 						//printf("%s ,",str);
-						if(c==' '){
+						while(c==' '){
 							fscanf(fv,"%c",&c);
-							printf("c2:%c\n",c);
+							//printf("c2:%c\n",c);
 						}
 
 						if(c=='\r'){
 							fscanf(fv,"%c",&c);
-							printf("c2:%c\n",c);
+							//printf("c2:%c\n",c);
 						}
 						table[row][col] = str;
-						printf("s:%s ",table[row][col]);
+						//printf("s:%s ",table[row][col]);
 						str = NULL;
 						col++;
 					}
@@ -524,21 +527,25 @@ int main(int argc, char **argv) {
 						row++;
 						col = 0;
 						fscanf(fv,"%c",&c);
-						printf("c2:%c\n",c);
+						//printf("c2:%c\n",c);
 						while(c !=' ' && c!= '\n'){
 							fscanf(fv,"%c",&c);//en
-							printf("c4:%c\n",c);
+							//printf("c4:%c\n",c);
 						}
 
 							//printf("\n");
 					}
 					fscanf(fv,"%c",&c);
-					printf("c1:%c\n",c);
+					//printf("c1:%c\n",c);
 				}
-				printf("fclose\n");
+				fscanf(fv,"%c",&c);
+				table[149][71] = append(table[149][71],c);
+				//printf("%s\n",table[149][71]);
+				//printf("fclose\n");
 				fclose(fv);
 
 				int j = 0;
+				/*
 				for(i=0;i<150;i++){
 					for(j=0;j<72;j++){
 						printf("%s ",table[i][j]);
@@ -546,6 +553,7 @@ int main(int argc, char **argv) {
 					j=0;
 					printf("\n");
 				}
+				*/
 			}
 			else{
 				printf("tabela.txt not found\n");
@@ -555,7 +563,6 @@ int main(int argc, char **argv) {
 
 		}
 	}
-	//TODO: ver colé do loop
 
 	return 0;
 }
