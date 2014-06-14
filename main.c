@@ -442,7 +442,43 @@ bool isTokenNumber(char* token){
 
 }
 
+void loadreductions(){
+        FILE *file_reductions;
+        file_reductions = fopen("Debug/reducoes.txt","r");
+        bool falha = false;
+        if(file_reductions != NULL){
+                char c;
+                int number_reduction = 0;
+                fseek(file_reductions, 0L, SEEK_END);
+                long int file_size = ftell(file_reductions);
+                fseek(file_reductions,0,SEEK_SET);
+                fscanf(file_reductions,"%c",&c);
+                char* str;
 
+                //str = append(NULL,c);
+
+                while(c!=EOF && ftell(file_reductions) < file_size){
+                        str = NULL;
+                        while (c!='#' && ftell(file_reductions) < file_size){
+                                fscanf(file_reductions,"%c",&c);
+                        }
+                        while (c!='\n' && ftell(file_reductions) < file_size){
+                                str = append(str,c);
+                                fscanf(file_reductions,"%c",&c);
+                                if(c=='\r'){
+                                        fscanf(file_reductions,"%c",&c);
+                                }
+                        }
+                        reductions[number_reduction] = str;
+                        number_reduction++;
+                }
+        }else{
+                printf("Falha ao importar o arquivo de reduções.");
+                exit(-1);
+        }
+
+
+}
 
 int main(int argc, char **argv) {
 
@@ -627,6 +663,9 @@ int main(int argc, char **argv) {
 					printf("\n");
 				}
 				*/
+				
+				loadreductions();
+				
 				states_stack = (Stack*)malloc(sizeof(Stack));
 				states_stack->state = 0;
 				states_stack->str = NULL;
