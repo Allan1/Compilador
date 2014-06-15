@@ -1,0 +1,86 @@
+   r0: #SS -> #S$
+   r1: #S -> #L1
+   r2: #S -> #D #S
+   r3: #D -> #T #DAUX .
+   r4: #T -> INTEIRO
+   r5: #T -> REAL
+   r6: #T -> BINARIO
+   r7: #DAUX -> #VAR ; #DAUX
+   r8: #DAUX -> #VAR
+   r9: #DF -> #T #FUN ( #DAUX2 ) { #DS }
+   r10: #DF -> #T #FUN ( #DAUX2 ) { #DS RETORNAR #VAR }
+   r11: #DF -> #T #FUN ( #DAUX2 ) { #DS RETORNAR #NUM }
+   r:12 #DFC -> #T #FUN ( #DAUX2 ) .
+   r13: #FUN -> NOME DE FUNCAO
+   r14: #DAUX2 -> #T #DAUX
+   r15: #DAUX2 -> #DAUX2 ; #DAUX2
+   r16: #DAUX2 -> &
+   r17: #CHAFUN -> #FUN ( #PARAMS )
+   r18: #CHAFUN -> #FUN ( )
+   r19: #PARAMS -> #DAUX
+   r20: #VAR -> VARIAVEL
+   r21: #L1 -> #DFC #L1
+   r22: #L1 -> #L2
+   r23: #L2 -> #DF #L2
+   r24: #L2 -> #L3
+   r25: #L3 -> [ #DS ]
+   r26: #L3 -> [ #DS RETORNAR #VAR ]
+   r27: #L3 -> [ #DS RETORNAR #NUM ]
+   r28: #DS -> #D #DS
+   r29: #DS -> #C
+   r30: #C -> #AT . #C
+   r31: #AT -> #VAR << #OA
+   r32: #AT -> #VAR << #OPO
+   r33: #AT -> #VAR << #OL
+   r34: #OA -> #OPO #OPE #OPO
+   r35: #OA -> #OA #OPE #OA
+   r36: #OA -> #OA #OPE #OPO
+   r37: #OA -> (#OA)
+   r38: #OPO -> #VAR
+   r39: #OPO -> #NUM
+   r40: #OPO -> #CHAFUN
+   r41: #OPE -> +
+   r42: #OPE -> -
+   r43: #OPE -> *
+   r44: #OPE -> /
+   r45: #OL -> #OPOL #OPL #OPOL
+   r46: #OL -> #OL #OPL #OL
+   r47: #OL -> #OL #OPL #OPOL
+   r48: #OL -> #OA #OPL1 #OA
+   r49: #OL -> #OPO #OPL1 #OPO
+   r50: #OL -> (#OL)
+   r51: #OL -> #OPOL
+   r52: #OPOL -> #VAR
+   r53: #OPOL -> NAO #VAR
+   r54: #OPOL -> #BOOL
+   r55: #OPOL -> #CHAFUN
+   r56: #OPOL -> NAO #CHAFUN
+   r57: #BOOL -> SIM
+   r58: #BOOL -> NAO
+   r59: #OPL -> =
+   r60: #OPL -> <>
+   r61: #OPL -> E
+   r62: #OPL -> OU
+   r63: #OPL1 -> =
+   r64: #OPL1 -> <>
+   r65: #OPL1 -> <
+   r66: #OPL1 -> <=
+   r67: #OPL1 -> >
+   r68: #OPL1 -> >=
+   r69: #C -> #IF #C
+   r70: #IF -> SE #OL { #C }
+   r71: #IF -> SE #OL { #C } #IF2
+   r72: #IF2 -> SENAO SE #OL { #C } #IF2
+   r73: #IF2 -> SENAO { #C }
+   r74: #C -> #WH #C
+   r75: #WH -> ENQUANTO #OL { #EC }
+   r76: #EC - > #C
+   r77: #EC -> PARAR
+   r78: #EC -> CONTINUAR
+   r79: #C -> #LER #C
+   r80: #LER -> LER #VAR .
+   r81: #C -> #IMP #C
+   r82: #IMP -> IMPRIMIR #DAUX .
+   r83: #IMP -> IMPRIMIR #NUM .
+   r84: #C -> &
+   r85: #NUM -> CONSTANTE
