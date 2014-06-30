@@ -362,10 +362,10 @@ void push(Stack **stack,int state, char* str){
 	aux->state = state;
 	aux->prev = *stack;
 	if(*stack !=NULL){
-		printf("prev:%s\n",(*stack)->str);
+		//printf("prev:%s\n",(*stack)->str);
 	}
 	aux->str = str;
-	printf("push %d\n",state);
+	//printf("push %d\n",state);
 	*stack = aux;
 	//free(aux);
 }
@@ -373,7 +373,7 @@ void push(Stack **stack,int state, char* str){
 Stack* pop(Stack **stack){
 	if(stack!=NULL){
 		Stack *top = *stack;
-		printf("pop %s\n",top->str);
+		//printf("pop %s\n",top->str);
 		*stack = top->prev;
 		return top;
 	}
@@ -383,7 +383,7 @@ Stack* pop(Stack **stack){
 Stack* get(Stack *stack){
 	if(stack!=NULL){
 		Stack *top = stack;
-		printf("get %d\n",top->state);
+		//printf("get %d\n",top->state);
 		return top;
 	}
 	return NULL;
@@ -393,7 +393,7 @@ int posInVocabulary(char* token){
 	int i,l;
 	int pos = -1;
 	if(token!=NULL){
-		for(l=0;l<72 && pos==-1;l++){
+		for(l=0;l<74 && pos==-1;l++){
 			//printf("token:%d , vocabulary:%d\n",strlen(token),strlen(vocabulary[l]));
 			for(i=0;i<strlen(token) && strlen(token)==strlen(vocabulary[l]);i++){
 				if(vocabulary[l][i]!=token[i]){
@@ -407,6 +407,7 @@ int posInVocabulary(char* token){
 			i=0;
 		}
 	}
+	//printf("vocabulary: %s\n", vocabulary[pos]);
 	return pos;
 }
 
@@ -594,7 +595,7 @@ int main(int argc, char **argv) {
 					str = NULL;
 				}
 				for(i=0;i<66;i++){
-					//printf("Vocabulary %d: %s\n",i,vocabulary[i]);
+					printf("Vocabulary %d: %s\n",i,vocabulary[i]);
 				}
 				str = NULL;
 				fscanf(fv,"%c",&c);
@@ -714,11 +715,11 @@ int main(int argc, char **argv) {
 						vocabulary_pos = posInVocabulary("CONSTANTE");
 						type = "CONSTANTE";
 					}
-					else if(isIdentifier(current_token->str) && current_token->prev->str[0] == '('){
-						vocabulary_pos = posInVocabulary("FUNCAO");
-						type = "FUNCAO";
-					}
-					else if(isIdentifier(current_token->str) && current_token->prev->str[0] != '('){
+					//else if(isIdentifier(current_token->str) && current_token->prev->str[0] == '('){
+						//vocabulary_pos = posInVocabulary("FUNCAO");
+						//type = "FUNCAO";
+					//}
+					else if(isIdentifier(current_token->str)){ //&& current_token->prev->str[0] != '('){
 						vocabulary_pos = posInVocabulary("VARIAVEL");
 						type = "VARIAVEL";
 					}
@@ -726,7 +727,7 @@ int main(int argc, char **argv) {
 						vocabulary_pos = posInVocabulary(current_token->str);
 						type = current_token->str;
 					}
-					printf("pos:%d\n",vocabulary_pos);
+					printf("Token:%s , pos:%d, current_state:%d\n",current_token->str, vocabulary_pos,current_state);
 					if(vocabulary_pos!=-1){
 						printf("table:%s\n",table[current_state][vocabulary_pos]);
 						char* cell = table[current_state][vocabulary_pos];
@@ -735,15 +736,15 @@ int main(int argc, char **argv) {
 						}
 						else if(cell[0] == 'e'){
 							push(&states_stack,current_state,type);
-							char* state_name;
+							char* state_name = NULL;
 							for(j=1;j<strlen(cell);j++){
 								state_name = append(state_name,cell[j]);
 							}
 							current_state = atoi(state_name);
 						}
 						else if(cell[0] == 'r'){
-							push(&tokens_stack,-1,current_token);
-							char* redu_name;
+							//push(&tokens_stack,-1,current_token);
+							char* redu_name = NULL;
 							for(j=1;j<strlen(cell);j++){
 								redu_name = append(redu_name,cell[j]);
 							}
@@ -760,25 +761,31 @@ int main(int argc, char **argv) {
 							int number_reduction=0;
 							split_second = (char**)malloc(sizeof(char*)*1);
 							while (i < strlen(redu_name)){// pega o #T
-								number_reduction++;
-								while(redu_name[i] != ' '){
+									str=NULL;
+								while(redu_name[i] != ' ' && redu_name[i] != '\0'){
 									str = append(str,redu_name[i]);
 									i++;
 								}
-								split_second = (char**)realloc(tokens,sizeof(char*)*number_reduction);
-								split_second[number_reduction-1] = str;
+								if(str != ' ' && str != NULL){
+									number_reduction++;
+									split_second = (char**)realloc(tokens,sizeof(char*)*number_reduction);
+									split_second[number_reduction-1] = str;
 
+								}
 							i++;
 							}
 							int result_compare;
 							i=0;
+							push(&tokens_stack,-1,current_token->str);
 							while(i<number_reduction){
 								current_token = pop(&states_stack);
 								result_compare = strncmp(current_token->str,split_second[i],strlen(split_second[i]));
 								if(result_compare!=0){
-									printf("Erro Sintático");//Alterar para especificação 3 e 4
+									printf("NAO");//Alterar para especificação 3 e 4
 									exit(-1);
 								}
+								current_state = current_token->state;
+								i++;
 							}
 							push(&tokens_stack,current_token->state,split_first);
 						}
@@ -789,6 +796,10 @@ int main(int argc, char **argv) {
 					current_token = pop(&tokens_stack);
 
 				}
+				if(error)
+					printf("NAO\n");
+				else if(accept)
+					printf("SIM\n");
 			}
 			else{
 				printf("tabela.txt not found\n");

@@ -59,8 +59,8 @@ r57: #LIC -> #VAZIO
 r58: #TP -> INTEIRO
 r59: #TP -> REAL
 r60: #TP -> BINARIO
-r61: #ID -> identificador
-r62: #CONST -> numero
+r61: #ID -> VARIAVEL
+r62: #CONST -> CONSTANTE
 r63: #OPA -> +
 r64: #OPA -> -
 r65: #OPA -> *
