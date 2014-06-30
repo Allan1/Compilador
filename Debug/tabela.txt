@@ -1,151 +1,165 @@
-#OPL #DAUX2 IMPRIMIR #LER #OL #OPO CONTINUAR #IF2 #DFC #OPE PARAR #OPL1 #FUN #L2 #L1 RETORNAR #L3 CONSTANTE & $ * SIM + ( ) . / #VAR - #AT BINARIO ; #OPOL #CHAFUN > = < #D #C E #WH #DF @ VARIAVEL >= FUNCAO #S #EC #T #DS #NUM ] #IF [ ENQUANTO REAL SE SENAO #IMP #DAUX INTEIRO OU #BOOL #OA <> <= << NAO #PARAMS } { LER 
-e0 X X X X X X X X e4 X X X X e5 e2 X e11 X X X X X X X X X X X X X e9 X X X X X X e3 X X X e10 X X X X e1 X e13 X X X X e12 X e8 X X X X e7 X X X X X X X X X X X 
-e1 X X X X X X X X X X X X X X X X X X X acc X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e2 X X X X X X X X X X X X X X X X X X X r1 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e3 X X X X X X X X e4 X X X X e5 e2 X e11 X X X X X X X X X X X X X e9 X X X X X X e3 X X X e10 X X X X e36 X e13 X X X X e12 X e8 X X X X e7 X X X X X X X X X X X 
-e4 X X X X X X X X X X X X X e5 e37 X e11 X X X X X X X X X X X X X e9 X X X X X X X X X X e10 X X X X X X e13 X X X X e12 X e8 X X X X e7 X X X X X X X X X X X 
-e5 X X X X X X X X X X X X X X X X X X X r22 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e6 X X X X X X X X X X X X e14 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e58 X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e7 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r4 X X X X X X X X X X X 
-e8 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r5 X X X X X X X X X X X X X X X X 
-e9 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r6 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e10 X X X X X X X X X X X X X e38 X X e11 X X X X X X X X X X X X X e9 X X X X X X X X X X X X X X X X X e13 X X X X e12 X e8 X X X X e7 X X X X X X X X X X X 
-e11 X X X X X X X X X X X X X X X X X X X r24 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e12 X X e29 e21 X X X X X X X X X X X X X X e23 X X X X X X X X e24 X e18 e9 X X X X X X e16 e17 X e20 X X e25 X X X X e13 e15 X X e19 X e27 e8 e26 X e22 X e7 X X X X X X X X X X e28 
-e13 X X X X X X X X X X X X X X X X X X X X X X X X X X X e31 X X X X X X X X X X X X X X X e25 X X X X X X X X X X X X X X X e30 X X X X X X X X X X X X 
-e14 X X X X X X X X X X X X X X X X X X X X X X X e32 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e15 X X X X X X X X X X X X X X X e34 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e33 X X X X X X X X X X X X X X X X X X X X 
-e16 X X e29 e21 X X X X X X X X X X X X X X e23 X X X X X X X X e24 X e18 X X X X X X X X e17 X e20 X X e25 X X X X X e39 X X e19 X e27 X e26 X e22 X X X X X X X X X X X X e28 
-e17 X X X X X X X X X X X X X X X r29 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r29 X X X X X X X X X X X X X X X X X r29 X X 
-e18 X X X X X X X X X X X X X X X X X X X X X X X X X e35 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e19 X X e29 e21 X X X X X X X X X X X X X X e23 X X X X X X X X e24 X e18 X X X X X X X X e40 X e20 X X e25 X X X X X X X X e19 X e27 X e26 X e22 X X X X X X X X X X X X e28 
-e20 X X e29 e21 X X X X X X X X X X X X X X e23 X X X X X X X X e24 X e18 X X X X X X X X e41 X e20 X X e25 X X X X X X X X e19 X e27 X e26 X e22 X X X X X X X X X X X X e28 
-e21 X X e29 e21 X X X X X X X X X X X X X X e23 X X X X X X X X e24 X e18 X X X X X X X X e42 X e20 X X e25 X X X X X X X X e19 X e27 X e26 X e22 X X X X X X X X X X X X e28 
-e22 X X e29 e21 X X X X X X X X X X X X X X e23 X X X X X X X X e24 X e18 X X X X X X X X e43 X e20 X X e25 X X X X X X X X e19 X e27 X e26 X e22 X X X X X X X X X X X X e28 
-e23 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e24 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e44 X X X X X 
-e25 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r20 X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e26 X X X X e47 e49 X X X X X X e56 X X X X e62 X X X e55 X e50 X X X e59 X X X X e46 e61 X X X X X X X X X e25 X e58 X X X X e60 X X X X X X X X X X X e53 e48 X X X e55 X X X X 
-e27 X X X X e47 e49 X X X X X X e56 X X X X e62 X X X e55 X e50 X X X e59 X X X X e46 e61 X X X X X X X X X e25 X e58 X X X X e60 X X X X X X X X X X X e53 e48 X X X e55 X X X X 
-e28 X X X X X X X X X X X X X X X X X X X X X X X X X X X e63 X X X X X X X X X X X X X X X e25 X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e29 X X X X X X X X X X X X X X X X X e62 X X X X X X X X X e31 X X X X X X X X X X X X X X X e25 X X X X X X e65 X X X X X X X X e64 X X X X X X X X X X X X 
-e30 X X X X X X X X X X X X X X X X X X X X X X X X X e66 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e31 r8 X X X X X X X X X X X X X X X X X r8 X X r8 X r8 X r8 r8 r8 X r8 X X e67 X X X X X X X X X X X r8 X r8 X X X X X r8 X X X X X X X X X X X X X X r8 X X r8 X X 
-e32 X e70 X X X X X X X X X X X X X X X X e71 X X X X X X X X X X X e9 X X X X X X X X X X X X X X X X X e69 X X X X X X e8 X X X X e7 X X X X X X X X X X X 
-e33 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r25 X X X X X X X X X X X X X X X X X X X X 
-e34 X X X X X X X X X X X X X X X X X e62 X X X X X X X X X e72 X X X X X X X X X X X X X X X e25 X X X X X X e73 X X X X X X X X X X X X X X X X X X X X X 
-e35 X X e29 e21 X X X X X X X X X X X X X X e23 X X X X X X X X e24 X e18 X X X X X X X X e74 X e20 X X e25 X X X X X X X X e19 X e27 X e26 X e22 X X X X X X X X X X X X e28 
-e36 X X X X X X X X X X X X X X X X X X X r2 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e37 X X X X X X X X X X X X X X X X X X X r21 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e38 X X X X X X X X X X X X X X X X X X X r23 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e39 X X X X X X X X X X X X X X X r28 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r28 X X X X X X X X X X X X X X X X X r28 X X 
-e40 X X X X X X X X X X X X X X X r69 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r69 X X X X X X X X X X X X X X X X X r69 X X 
-e41 X X X X X X X X X X X X X X X r74 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r74 X X X X X X X X X X X X X X X X X r74 X X 
-e42 X X X X X X X X X X X X X X X r79 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r79 X X X X X X X X X X X X X X X X X r79 X X 
-e43 X X X X X X X X X X X X X X X r81 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r81 X X X X X X X X X X X X X X X X X r81 X X 
-e44 X X X X e75 e49 X X X X X X e56 X X X X e62 X X X X X e50 X X X e59 X X X X X e61 X X X X X X X X X e25 X X X X X X e60 X X X X X X X X X X X X e48 X X X X X X X X 
-e45 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e76 X 
-e46 e77 X X X X X X X X X X X X X X X X X X X X r51 X X r51 X X X X X X X X X X e78 X X X e80 X X X r51 X r51 X X X X X X X X X X X X X X X e81 X X e79 X X r51 X X X X 
-e47 e82 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e78 X X X e80 X X X X X X X X X X X X X X X X X X X X X e81 X X e79 X X X X X X X 
-e48 X X X X X X X X X e83 X e114 X X X X X X X X e92 X e90 X X X e93 X e91 X X X X X e88 e84 e86 X X X X X X X e89 X X X X X X X X X X X X X X X X X X X e85 e87 X X X X X X 
-e49 X X X X X X X X X e95 X e94 X X X X X X X X e92 X e90 X X X e93 X e91 X X X X X e88 e84 e86 X X X X X X X e89 X X X X X X X X X X X X X X X X X X X e85 e87 X X X X X X 
-e50 X X X X e47 e49 X X X X X X e56 X X X X e62 X X X e55 X e50 X X X e59 X X X X e46 e61 X X X X X X X X X e25 X e58 X X X X e60 X X X X X X X X X X X e53 e48 X X X e55 X X X X 
-e51 r52 X X X X X X X X X X X X X X X X X r52 X X r52 X r52 X r52 r52 r52 X r52 X X X X X X X X X X X X X X r52 X r52 X X X X X r52 X X X X X X X X X X X X X X r52 X X r52 X X 
-e52 X X X X X X X X X X X X e56 X X X X X X X X X X X X X X e98 X X X X X e97 X X X X X X X X X e25 X e58 X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e53 X X X X X X X X X X X X X X X X X X X X X r54 X X r54 X X X X X X X X X X r54 X X X r54 X X X r54 X r54 X X X X X X X X X X X X X X X r54 X X r54 X X r54 X X X X 
-e54 X X X X X X X X X X X X e56 X X X X r55 X X r55 X r55 r55 r55 r55 r55 X r55 X X X X X X r55 X X X r55 X X X r55 X e58 X X X X X X X X X X X X X X X r55 X X r55 X X X X X X X 
-e55 X X X X X X X X X X X X X X X X X X X X X r57 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r58 X X X X 
-e56 X X X X X X X X X X X X X X X X X X X X X X X e57 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e57 X X X X X X X X X X X X X X X X X X X X X X X X e100 X X e31 X X X X X X X X X X X X X X X e25 X X X X X X X X X X X X X X X e101 X X X X X X X X e99 X X X 
-e58 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r13 X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e59 r38 X X X X X X X X X X X X X X X X X r38 X X r38 X r38 X r38 r38 r38 X r38 X X X X X X X X X X X X X X r38 X r38 X X X X X r38 X X X X X X X X X X X X X X r38 X X r38 X X 
-e60 X X X X X X X X X X X X X X X X X r39 X X r39 X r39 X X r39 r39 X r39 X X X X X X X X X X X X X X r39 X r39 X X X X X r39 X X X X X X X X X X X X X X X X X r39 X X 
-e61 X X X X X X X X X X X X X X X X X r40 X X r40 X r40 r40 r40 r40 r40 X r40 X X X X X X r40 X X X r40 X X X r40 X r40 X X X X X X X X X X X X X X X r40 X X r40 X X X X X X X 
-e62 X X X X X X X X X X X X X X X X X r85 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e63 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e102 X 
-e64 X X X X X X X X X X X X X X X X X X X X X X X X X e103 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e65 X X X X X X X X X X X X X X X X X X X X X X X X X e104 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e66 X X X X X X X X X X X X X X X X X X X X X X X X X r3 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e67 X X X X X X X X X X X X X X X X X X X X X X X X X X X e31 X X X X X X X X X X X X X X X e25 X X X X X X X X X X X X X X X e105 X X X X X X X X X X X X 
-e68 X X X X X X X X X X X X X X X X X X X X X X X X e106 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e69 X X X X X X X X X X X X X X X X X X X X X X X X X X X e31 X X X X X X X X X X X X X X X e25 X X X X X X X X X X X X X X X e107 X X X X X X X X X X X X 
-e70 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e108 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e71 X X X X X X X X X X X X X X X X X X r16 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e72 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e109 X X X X X X X X X X X X X X X X X X X X 
-e73 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e110 X X X X X X X X X X X X X X X X X X X X 
-e74 X X X X X X X X X X X X X X X r30 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r30 X X X X X X X X X X X X X X X X X r30 X X 
-e75 X X X X X X X X X X X X X X X X X X X X X X X X r31 r31 X X X X X X X X r31 r31 r31 X X r31 X X X X r31 X X X X X X X X X X X X X X X X r31 X X r31 r31 X X X X X X 
-e76 X X e29 e21 X X X X X X X X X X X X X X e23 X X X X X X X X e24 X e18 X X X X X X X X e111 X e20 X X e25 X X X X X X X X e19 X e27 X e26 X e22 X X X X X X X X X X X X e28 
-e77 X X X X X X X X X X X X e56 X X X X X X X X e55 X X X X X e51 X X X X e112 e54 X X X X X X X X X e25 X e58 X X X X X X X X X X X X X X X X e53 X X X X e55 X X X X 
-e78 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r59 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e79 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r60 X X X X X X X 
-e80 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r61 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e81 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r62 X X X X X X X X X X 
-e82 X X X X e47 e49 X X X X X X e56 X X X X e62 X X X e55 X e50 X X X e59 X X X X e46 e61 X X X X X X X X X e25 X e58 X X X X e60 X X X X X X X X X X X e53 e48 X X X e55 X X X X 
-e83 X X X X X e49 X X X X X X X X X X X e62 X X X X X e50 X X X e59 X X X X X e61 X X X X X X X X X X X X X X X X e60 X X X X X X X X X X X X e48 X X X X X X X X 
-e84 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r63 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e85 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r64 X X X X X X X 
-e86 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r65 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e87 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r66 X X X X X X 
-e88 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r67 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e89 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r68 X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e90 X X X X X X X X X X X X X X X X X X X X X X r41 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e91 X X X X X X X X X X X X X X X X X X X X X X X X X X X X r42 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e92 X X X X X X X X X X X X X X X X X X X X r43 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e93 X X X X X X X X X X X X X X X X X X X X X X X X X X r44 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e94 X X X X X e118 X X X X X X e56 X X X X e62 X X X X X X X X X e59 X X X X X e61 X X X X X X X X X e25 X X X X X X e60 X X X X X X X X X X X X X X X X X X X X X 
-e95 X X X X X e119 X X X X X X e56 X X X X e62 X X X X X X X X X e59 X X X X X e61 X X X X X X X X X e25 X X X X X X e60 X X X X X X X X X X X X X X X X X X X X X 
-e96 X X X X X X X X X X X X X X X X X X X X X X X X e120 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e97 X X X X X X X X X X X X X X X X X X X X X X X X e121 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e98 r53 X X X X X X X X X X X X X X X X X r53 X X r53 X r53 X r53 r53 r53 X r53 X X X X X X X X X X X X X X r53 X r53 X X X X X r53 X X X X X X X X X X X X X X r53 X X r53 X X 
-e99 X X X X X X X X X X X X X X X X X X X X X X X X e122 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e100 X X X X X X X X X X X X X X X X X X X X X X X X r18 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e101 r19 X X X X X X X X X X X X X X X X X X X X X X X X r19 r19 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e102 X X e29 e21 X X e126 X X X e125 X X X X X X X e23 X X X X X X X X e24 X e18 X X X X X X X X e124 X e20 X X e25 X X X e123 X X X X e19 X e27 X e26 X e22 X X X X X X X X X X X X e28 
-e103 X X X X X X X X X X X X X X X X X X X X X X X X X r82 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e104 X X X X X X X X X X X X X X X X X X X X X X X X X r83 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e105 r7 X X X X X X X X X X X X X X X X X X X X X X X X r7 r7 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e106 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e127 X 
-e107 r14 X X X X X X X X X X X X X X X X X X X X X X X X r14 r14 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e108 X e70 X X X X X X X X X X X X X X X X e71 X X X X X X X X X X X e9 X X X X X X X X X X X X X X X X X e69 X X X X X X e8 X X X X e7 X X X X X X X X X X X 
-e109 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r26 X X X X X X X X X X X X X X X X X X X X 
-e110 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r27 X X X X X X X X X X X X X X X X X X X X 
-e111 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e129 X X 
-e112 X X X X X X X X X X X X X X X X X X X X X r45 X X r45 X X X X X X X X X X r45 X X X r45 X X X r45 X r45 X X X X X X X X X X X X X X X r45 X X r45 X X r45 X X X X 
-e113 X X X X X X X X X X X X X X X X X X X X X X X X r46 X X X X X X X X X X r46 X X X r46 X X X X X X X X X X X X X X X X X X X X X r46 X X r46 X X X X X X X 
-e114 X X X X X e49 X X X X X X X X X X X e62 X X X X X e50 X X X e59 X X X X X e61 X X X X X X X X X X X X X X X X e60 X X X X X X X X X X X X e48 X X X X X X X X 
-e115 X X X X X X X X X X X X X X X X X X X X X r47 X X r47 X X X X X X X X X X r47 X X X r47 X X X r47 X r47 X X X X X X X X X X X X X X X r47 X X r47 X X r47 X X X X 
-e116 X X X X X X X X X X X X X X X X X X X X X X X X r35 r35 X X X X X X X X r35 r35 r35 X X r35 X X X X r35 X X X X X X X X X X X X X X X X r35 X X r35 r35 X X X X X X 
-e117 X X X X X X X X X X X X X X X X X r36 X X r36 X r36 r36 r36 r36 r36 X r36 X X X X X X X X X X X X X X r36 X r36 X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e118 X X X X X X X X X X X X X X X X X r49 X X r49 X r49 r49 r49 r49 r49 X r49 X X X X X X X X X X X X X X r49 X r49 X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e119 X X X X X X X X X X X X X X X X X r34 X X r34 X r34 r34 r34 r34 r34 X r34 X X X X X X X X X X X X X X r34 X r34 X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e120 X X X X X X X X X X X X X X X X X X X X X X X X r50 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e121 X X X X X X X X X X X X X X X X X X X X X X X X r37 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e122 X X X X X X X X X X X X X X X X X X X X X X X X r17 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e123 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e131 X X 
-e124 X X X X X X X X X X X X X X X r76 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r76 X X X X X X X X X X X X X X X X X r76 X X 
-e125 X X X X X X X X X X r77 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e126 X X X X X X r78 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e127 X X e29 e21 X X X X X X X X X X X X X X e23 X X X X X X X X e24 X e18 e9 X X X X X X e16 e17 X e20 X X e25 X X X X e13 e132 X X e19 X e27 e8 e26 X e22 X e7 X X X X X X X X X X e28 
-e128 r15 X X X X X X X X X X X X X X X X X X X X X X X X r15 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X 
-e129 X X X X X X X e133 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e136 X X X X X X X X X X X r70 X X 
-e130 X X X X X X X X X X X X X X X X X X X X X X X X r48 r48 X X X X X X X X r48 r48 r48 X X r48 X X X X r48 X X X X X X X X X X X X X X X X r48 X X r48 r48 X X X X X X 
-e131 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r75 X X 
-e132 X X X X X X X X X X X X X X X e135 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e134 X X 
-e133 X X r71 X X X X X X X X X X X X X X X r71 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r71 X r71 X X X X X X X X X X X X X X r71 
-e134 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r9 X X 
-e135 X X X X X X X X X X X X X X X X X e62 X X X X X X X X X e137 X X X X X X X X X X X X X X X e25 X X X X X X e138 X X X X X X X X X X X X X X X X X X X X X 
-e136 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e139 X X X X X X X X X X X X X e140 X 
-e137 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e141 X X 
-e138 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e142 X X 
-e139 X X X X e47 e49 X X X X X X e56 X X X X e62 X X X e55 X e50 X X X e59 X X X X e46 e61 X X X X X X X X X e25 X e58 X X X X e60 X X X X X X X X X X X e53 e48 X X X e55 X X X X 
-e140 X X e29 e21 X X X X X X X X X X X X X X e23 X X X X X X X X e24 X e18 X X X X X X X X e144 X e20 X X e25 X X X X X X X X e19 X e27 X e26 X e22 X X X X X X X X X X X X e28 
-e141 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r10 X X 
-e142 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r11 X X 
-e143 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e145 X 
-e144 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e146 X X 
-e145 X X e29 e21 X X X X X X X X X X X X X X e23 X X X X X X X X e24 X e18 X X X X X X X X e147 X e20 X X e25 X X X X X X X X e19 X e27 X e26 X e22 X X X X X X X X X X X X e28 
-e146 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r73 X X 
-e147 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e148 X X 
-e148 X X X X X X X e149 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e136 X X X X X X X X X X X X X X 
-e149 X X r72 X X X X X X X X X X X X X X X r72 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r72 X r72 X X X X X X X X X X X X X X r72
+$end & ( ) * + - . / ; < << <= <> = > >= BINARIO CONTINUAR E ENQUANTO IMPRIMIR INTEIRO LER NAO OU PARAR REAL SE SENAO SIM [ ] identificador numero { } #ATR #CB #CHAFUN #CMD #CMDS #CONST #DESVIO #DF #DV #EXPA #EXPL #EXPRL #ID #IMP #LCMDS #LEIT #LI #LIC #LOOP #LT #LTI #OPA #OPRL #PP #S #SENAOSE #SNAO #TP #VAZIO
+e0 X e8 X X X X X X X X X X X X X X X e7 X X X X e5 X X X X e6 X X X X X X X X X X X X X X X X X e2 X X X X X X X X X X X X X X X e1 X X e3 e4
+e1 acc X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e2 X e8 X X X X X X X X X X X X X X X e7 X X X X e5 X X X X e6 X X X X X X X X X X e9 X X X X X X X X X X X X X X X X X X X X X X X X X e10 e11
+e3 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e14 X X X X X X X X X X X X X X X e13 X X X e12 X X X X X X X X X X X X
+e4 X r3 X X X X X X X X X X X X X X X r3 X X r3 r3 r3 r3 X X X r3 r3 X X X X r3 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e5 X X X X X X X X X r58 X X X X X X X X X X X X X X X X X X X X X X X r58 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e6 X X X X X X X X X r59 X X X X X X X X X X X X X X X X X X X X X X X r59 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e7 X X X X X X X X X r60 X X X X X X X X X X X X X X X X X X X X X X X r60 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e8 X r73 X r73 X X X r73 X X X X X X X X X r73 r73 X r73 r73 r73 r73 X X r73 r73 r73 r73 X r73 r73 r73 X X r73 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e9 X e8 X X X X X X X X X X X X X X X e7 X X X X e5 X X X X e6 X X X X X X X X X X X X X X X X e15 X X X X X X X X X X X X X X X X X X X e16 e17
+e10 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e14 X X X X X X X X X X X X X X X e18 X X X X X X X X X X X X X X X X
+e11 X r5 X X X X X X X X X X X X X X X r5 X X X X r5 X X X X r5 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e12 X X X X X X X e19 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e13 X X X X X X X e21 X e20 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e14 X X r61 r61 r61 r61 r61 r61 r61 r61 r61 r61 r61 r61 r61 r61 r61 X X r61 X X X X X r61 X X X X X X X X X r61 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e15 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e23 X X X X X X X X X X X X X X X X X X X X X X X X X X X X e22 X X X X X
+e16 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e14 X X X X X X X X X X X X X X X e24 X X X X X X X X X X X X X X X X
+e17 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r7 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e18 X X e25 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e19 X e8 X X X X X X X X X X X X X X X e7 X X X X e5 X X X X e6 X X X X X X X X X X X X X X X X X e26 X X X X X X X X X X X X X X X X X X e3 e4
+e20 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e14 X X X X X X X X X X X X X X X e13 X X X e27 X X X X X X X X X X X X
+e21 X X X X X X X r11 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e22 r1 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e23 X e8 X X X X X X X X X X X X X X X e7 X X X X e5 X X X X e6 X X X X e29 X X X X X X X X X X X X e28 X X X X X X X X X X X X X X X X X X e3 e4
+e24 X X e30 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e25 X e8 X X X X X X X X X X X X X X X e7 X X X X e5 X X X X e6 X X X X X X X X X X X X X X X X X X X X X X X X X X X X e31 X X X X X X X e32 e33
+e26 X r2 X X X X X X X X X X X X X X X r2 X X r2 r2 r2 r2 X X X r2 r2 X X X X r2 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e27 X X X X X X X r10 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e28 X e8 X X X X X X X X X X X X X X X X X X e45 e47 X e46 X X X X e44 X X X X e14 X X X e38 X e37 e35 e34 X e39 X X X X X e43 e42 X e41 X X e40 X X X X X X X X X e36
+e29 r9 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e30 X e8 X X X X X X X X X X X X X X X e7 X X X X e5 X X X X e6 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e48 X X X X X X e49 e50
+e31 X X X e51 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e32 X X X X X X X X X e52 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e33 X X X r13 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e34 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e53 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e35 X e8 X X X X X X X X X X X X X X X X X X e45 e47 X e46 X X X X e44 X X X X e14 X X X e38 X e37 e35 e54 X e39 X X X X X e43 e42 X e41 X X e40 X X X X X X X X X e36
+e36 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r17 X X X r17 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e37 X X X X X X X e55 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e38 X X X X X X X e56 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e39 X r20 X X X X X X X X X X X X X X X X r20 X r20 r20 X r20 X X r20 X r20 X X X X r20 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e40 X r21 X X X X X X X X X X X X X X X X r21 X r21 r21 X r21 X X r21 X r21 X X X X r21 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e41 X X X X X X X e57 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e42 X X X X X X X e58 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e43 X X e59 X X X X X X X X e60 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e44 X X e66 X X X e69 X X X X X X X X X X X X X X X X X e63 X X X X X e62 X X e14 e71 X X X X e65 X X e70 X X X e68 e61 e67 e64 X X X X X X X X X X X X X X X X
+e45 X X e66 X X X e69 X X X X X X X X X X X X X X X X X e63 X X X X X e62 X X e14 e71 X X X X e65 X X e70 X X X e68 e72 e67 e64 X X X X X X X X X X X X X X X X
+e46 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e14 X X X X X X X X X X X X X X X e73 X X X X X X X X X X X X X X X X
+e47 X e8 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e14 e71 X X X X X X X e76 X X X X X X e75 X X X X e74 X X X X X X X X X X e77
+e48 X X X e78 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e49 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e14 X X X X X X X X X X X X X X X e79 X X X X X X X X X X X X X X X X
+e50 X X X r15 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e51 X X X X X X X e80 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e52 X e8 X X X X X X X X X X X X X X X e7 X X X X e5 X X X X e6 X X X X X X X X X X X X X X X X X X X X X X X X X X X X e81 X X X X X X X e32 e33
+e53 r8 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e54 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r16 X X X r16 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e55 X r18 X X X X X X X X X X X X X X X X r18 X r18 r18 X r18 X X r18 X r18 X X X X r18 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e56 X r19 X X X X X X X X X X X X X X X X r19 X r19 r19 X r19 X X r19 X r19 X X X X r19 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e57 X r22 X X X X X X X X X X X X X X X X r22 X r22 r22 X r22 X X r22 X r22 X X X X r22 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e58 X r23 X X X X X X X X X X X X X X X X r23 X r23 r23 X r23 X X r23 X r23 X X X X r23 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e59 X e8 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e14 e71 X X X X X X X e76 X X X X X X e75 X X X X e82 X X X X X X X X X X e77
+e60 X X e66 X X X e69 X X X X X X X X X X X X X X X X X e63 X X X X X e62 X X e14 e71 X X X X e65 X X e70 X X X e83 e84 e67 e64 X X X X X X X X X X X X X X X X
+e61 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e85 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e62 X X X r45 X X X r45 X X X X X X X X X X X X X X X X X X X X X X X X X X X r45 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e63 X X X r46 X X X r46 X X X X X X X X X X X X X X X X X X X X X X X X X e14 X r46 X X X e87 X X X X X X X X X e86 X X X X X X X X X X X X X X X X
+e64 X X e59 r40 r40 r40 r40 r40 r40 X r40 X r40 r40 r40 r40 r40 X X r40 X X X X X r40 X X X X X X X X X r40 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e65 X X X r50 X X X r50 X X X X X X X X X X X X X X X X X X X X X X X X X X X r50 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e66 X X e66 X X X e69 X X X X X X X X X X X X X X X X X e63 X X X X X e62 X X e14 e71 X X X X e65 X X e70 X X X e89 e88 e67 e64 X X X X X X X X X X X X X X X X
+e67 X X X X X X X X X X X X X X X X X X X e90 X X X X X e91 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e68 X X X X e102 e100 e101 X e103 X e95 X e97 e99 e98 e94 e96 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e93 e92 X X X X X X
+e69 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e14 X X X X X X X X X X X X X X X e104 X X X X X X X X X X X X X X X X
+e70 X X X r42 r42 r42 r42 r42 r42 X r42 X r42 r42 r42 r42 r42 X X r42 X X X X X r42 X X X X X X X X X r42 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e71 X X X r62 r62 r62 r62 r62 r62 r62 r62 X r62 r62 r62 r62 r62 X X r62 X X X X X r62 X X X X X X X X X r62 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e72 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e105 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e73 X X X X X X X r38 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e74 X X X X X X X r39 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e75 X X X X X X X X X e106 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e76 X X X X X X X X X e107 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e77 X X X r57 X X X r57 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e78 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e108 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e79 X X X X X X X X X e109 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e80 X e8 X X X X X X X X X X X X X X X e7 X X X X e5 X X X X e6 X X X X X X X X X X e110 X X X X X X X X X X X X X X X X X X X X X X X X X e10 e11
+e81 X X X r12 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e82 X X X e111 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e83 X X X X e102 e100 e101 r25 e103 X e95 X e97 e99 e98 e94 e96 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e93 e92 X X X X X X
+e84 X X X X X X X r26 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e85 X e8 X X X X X X X X X X X X X X X X X X e45 e47 X e46 X X X X e44 X X X X e14 X X X e38 X e37 e35 e112 X e39 X X X X X e43 e42 X e41 X X e40 X X X X X X X X X e36
+e86 X X e59 r47 X X X r47 X X X X X X X X X X X X X X X X X X X X X X X X X X X r47 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e87 X X X r49 X X X r49 X X X X X X X X X X X X X X X X X X X X X X X X X X X r49 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e88 X X X e113 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e89 X X X e114 e102 e100 e101 X e103 X e95 X e97 e99 e98 e94 e96 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e93 e92 X X X X X X
+e90 X X e117 X X X e69 X X X X X X X X X X X X X X X X X X X X X X X X X X e14 e71 X X X X X X X e70 X X X e68 X e115 e116 X X X X X X X X X X X X X X X X
+e91 X X e117 X X X e69 X X X X X X X X X X X X X X X X X X X X X X X X X X e14 e71 X X X X X X X e70 X X X e68 X e118 e116 X X X X X X X X X X X X X X X X
+e92 X X e117 X X X e69 X X X X X X X X X X X X X X X X X X X X X X X X X X e14 e71 X X X X X X X e70 X X X e119 X X e116 X X X X X X X X X X X X X X X X
+e93 X X e117 X X X e69 X X X X X X X X X X X X X X X X X X X X X X X X X X e14 e71 X X X X X X X e70 X X X e120 X X e116 X X X X X X X X X X X X X X X X
+e94 X X r67 X X X r67 X X X X X X X X X X X X X X X X X X X X X X X X X X r67 r67 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e95 X X r68 X X X r68 X X X X X X X X X X X X X X X X X X X X X X X X X X r68 r68 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e96 X X r69 X X X r69 X X X X X X X X X X X X X X X X X X X X X X X X X X r69 r69 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e97 X X r70 X X X r70 X X X X X X X X X X X X X X X X X X X X X X X X X X r70 r70 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e98 X X r71 X X X r71 X X X X X X X X X X X X X X X X X X X X X X X X X X r71 r71 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e99 X X r72 X X X r72 X X X X X X X X X X X X X X X X X X X X X X X X X X r72 r72 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e100 X X r63 X X X r63 X X X X X X X X X X X X X X X X X X X X X X X X X X r63 r63 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e101 X X r64 X X X r64 X X X X X X X X X X X X X X X X X X X X X X X X X X r64 r64 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e102 X X r65 X X X r65 X X X X X X X X X X X X X X X X X X X X X X X X X X r65 r65 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e103 X X r66 X X X r66 X X X X X X X X X X X X X X X X X X X X X X X X X X r66 r66 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e104 X X X r41 r41 r41 r41 r41 r41 X r41 X r41 r41 r41 r41 r41 X X r41 X X X X X r41 X X X X X X X X X r41 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e105 X e8 X X X X X X X X X X X X X X X X e124 X e45 e47 X e46 X X e123 X e125 X X X X e14 X X X e38 X e37 e122 X X e39 X X X X X e43 e42 e121 e41 X X e40 X X X X X X X X X e126
+e106 X e8 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e14 e71 X X X X X X X e76 X X X X X X e75 X X X X e127 X X X X X X X X X X e77
+e107 X e8 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e14 e71 X X X X X X X e76 X X X X X X e75 X X X X e128 X X X X X X X X X X e77
+e108 X e8 X X X X X X X X X X X X X X X e7 X X X X e5 X X X X e6 X X X X X X X X X X X X X X X X X e129 X X X X X X X X X X X X X X X X X X e3 e4
+e109 X e8 X X X X X X X X X X X X X X X e7 X X X X e5 X X X X e6 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e130 X X X X X X e49 e50
+e110 X r4 X X X X X X X X X X X X X X X r4 X X X X r4 X X X X r4 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e111 X X X r24 X X X r24 X X X X X X X X X X X X X X X X X X X X X X X X X X X r24 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e112 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e131 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e113 X X X r51 X X X r51 X X X X X X X X X X X X X X X X X X X X X X X X X X X r51 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e114 X X X r43 r43 r43 r43 r43 r43 X r43 X r43 r43 r43 r43 r43 X X r43 X X X X X r43 X X X X X X X X X r43 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e115 X X X r52 X X X r52 X X X X X X X X X X X X X X X X X X X X X X X X X X X r52 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e116 X X X r40 r40 r40 r40 r40 r40 X r40 X r40 r40 r40 r40 r40 X X r40 X X X X X r40 X X X X X X X X X r40 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e117 X X e117 X X X e69 X X X X X X X X X X X X X X X X X X X X X X X X X X e14 e71 X X X X X X X e70 X X X e132 X X e116 X X X X X X X X X X X X X X X X
+e118 X X X r53 X X X r53 X X X X X X X X X X X X X X X X X X X X X X X X X X X r53 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e119 X X X r54 e102 e100 e101 r54 e103 X X X X X X X X X X r54 X X X X X r54 X X X X X X X X X r54 X X X X X X X X X X X X X X X X X X X X X X e93 X X X X X X X
+e120 X X X r44 r44 r44 r44 r44 r44 X r44 X r44 r44 r44 r44 r44 X X r44 X X X X X r44 X X X X X X X X X r44 X X X X X X X X X X X X X X X X X X X X X X e93 X X X X X X X
+e121 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e133 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e122 X e8 X X X X X X X X X X X X X X X X e124 X e45 e47 X e46 X X e123 X e125 X X X X e14 X X X e38 X e37 e122 X X e39 X X X X X e43 e42 e134 e41 X X e40 X X X X X X X X X e126
+e123 X e8 X X X X X X X X X X X X X X X X e124 X e45 e47 X e46 X X e123 X e125 X X X X e14 X X X e38 X e37 e122 X X e39 X X X X X e43 e42 e135 e41 X X e40 X X X X X X X X X e126
+e124 X e8 X X X X X X X X X X X X X X X X e124 X e45 e47 X e46 X X e123 X e125 X X X X e14 X X X e38 X e37 e122 X X e39 X X X X X e43 e42 e136 e41 X X e40 X X X X X X X X X e126
+e125 X X e66 X X X e69 X X X X X X X X X X X X X X X X X e63 X X X X X e62 X X e14 e71 X X X X e65 X X e70 X X X e68 e137 e67 e64 X X X X X X X X X X X X X X X X
+e126 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r37 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e127 X X X r55 X X X r55 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e128 X X X r56 X X X r56 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e129 X e8 X X X X X X X X X X X X X X X X X X e45 e47 X e46 X X X X e44 X X X X e14 X X X e38 X e37 e35 e138 X e39 X X X X X e43 e42 X e41 X X e40 X X X X X X X X X e36
+e130 X X X r14 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e131 X e8 X X X X X X X X X X X X X X X X X X X X X X X X X X X e140 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e139 X X e141
+e132 X X X e114 e102 e100 e101 X e103 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e93 X X X X X X X
+e133 X r32 X X X X X X X X X X X X X X X X r32 X r32 r32 X r32 X X r32 X r32 X X X X r32 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e134 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r33 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e135 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r34 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e136 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r35 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e137 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e142 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e138 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e143 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e139 X e8 X X X X X X X X X X X X X X X X X X X X X X X X X X X e145 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e144 X e146
+e140 X X X X X X X X X X X X X X X X X X X X X X X X X X X X e147 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e141 X r29 X X X X X X X X X X X X X X X X X X X X X X X X X X X r29 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e142 X e8 X X X X X X X X X X X X X X X X e124 X e45 e47 X e46 X X e123 X e125 X X X X e14 X X X e38 X e37 e149 e112 X e39 X X X X X e43 e42 e148 e41 X X e40 X X X X X X X X X e150
+e143 X e8 X X X X X X X X X X X X X X X e7 X X X X e5 X X X X e6 X X X X X X X X X X X X X X X X e151 X X X X X X X X X X X X X X X X X X X e16 e17
+e144 X r27 X X X X X X X X X X X X X X X X r27 X r27 r27 X r27 X X r27 X r27 X X X X r27 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e145 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e152 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e146 X r31 X X X X X X X X X X X X X X X X r31 X r31 r31 X r31 X X r31 X r31 X X X X r31 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e147 X X e66 X X X e69 X X X X X X X X X X X X X X X X X e63 X X X X X e62 X X e14 e71 X X X X e65 X X e70 X X X e68 e153 e67 e64 X X X X X X X X X X X X X X X X
+e148 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e154 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e149 X e8 X X X X X X X X X X X X X X X X e124 X e45 e47 X e46 X X e123 X e125 X X X X e14 X X X e38 X e37 e149 e54 X e39 X X X X X e43 e42 e134 e41 X X e40 X X X X X X X X X e150
+e150 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r17 X X X r17 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e151 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r6 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e152 X e8 X X X X X X X X X X X X X X X X X X e45 e47 X e46 X X X X e44 X X X X e14 X X X e38 X e37 e35 e155 X e39 X X X X X e43 e42 X e41 X X e40 X X X X X X X X X e36
+e153 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e156 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e154 X e8 X X X X X X X X X X X X X X X X X X X X X X X X X X X e140 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e157 X X e141
+e155 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e158 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e156 X e8 X X X X X X X X X X X X X X X X X X e45 e47 X e46 X X X X e44 X X X X e14 X X X e38 X e37 e35 e159 X e39 X X X X X e43 e42 X e41 X X e40 X X X X X X X X X e36
+e157 X e8 X X X X X X X X X X X X X X X X X X X X X X X X X X X e145 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e160 X e146
+e158 X r30 X X X X X X X X X X X X X X X X r30 X r30 r30 X r30 X X r30 X r30 X X X X r30 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e159 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e161 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e160 X e8 X X X X X X X X X X X X X X X X e124 X e45 e47 X e46 X X e123 X e125 X X X X e14 X X X e38 X e37 e122 X X e39 X X X X X e43 e42 e162 e41 X X e40 X X X X X X X X X e126
+e161 X e8 X X X X X X X X X X X X X X X X X X X X X X X X X X X e140 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X e163 X X e141
+e162 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X r36 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X
+e163 X r28 X X X X X X X X X X X X X X X X X X X X X X X X X X X r28 X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X

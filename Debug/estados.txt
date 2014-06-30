@@ -1,0 +1,866 @@
+e0:	#SS -> @#S $	e1
+	#S - > @#L1	e2
+	#S - > @#D #S	e3
+	#L1 -> @#DFC L1	e4
+	#L1 -> @#L2	e5
+	#DFC -> @#T #FUN (#DAUX2) . e6
+	#T -> @INTEIRO e7
+	#T -> @REAL e8
+	#T -> @BINARIO e9
+	#L2 -> @#DF #L2 e10
+	#L2 -> @#L3 e11
+	#DF -> @#T #FUN ( #DAUX2 ) { #DS } e6
+	#DF - > @#T #FUN ( #DAUX2 ) { #DS RETORNAR #VAR }	e6
+	#DF -> @#T #FUN ( #DAUX2 ) { #DS RETORNAR #NUM } e6
+	#L3 -> @[ #DS ] e12
+	#L3 -> @[ #DS RETORNAR #VAR ] e12
+	#L3 -> @[ #DS RETORNAR #NUM ] e12
+	#D -> @#T #DAUX e13
+
+e1:	#SS -> #S @$ acc
+
+e2:	#S -> #L1 @ r1
+
+e3:	#S -> #D @#S e36
+	#S - > @#L1	e2
+	#S - > @#D #S	e3
+	#L1 -> @#DFC #L1	e4
+	#L1 -> @#L2	e5
+	#DFC -> @#T #FUN (#DAUX2) . e6
+	#T -> @INTEIRO e7
+	#T -> @REAL e8
+	#T -> @BINARIO e9
+	#L2 -> @#DF #L2 e10
+	#L2 -> @#L3 e11
+	#DF -> @#T #FUN ( #DAUX2 ) { #DS } e6
+	#DF - > @#T #FUN ( #DAUX2 ) { #DS RETORNAR #VAR }	e6
+	#DF -> @#T #FUN ( #DAUX2 ) { #DS RETORNAR #NUM } e6
+	#L3 -> @[ #DS ] e12
+	#L3 -> @[ #DS RETORNAR #VAR ] e12
+	#L3 -> @[ #DS RETORNAR #NUM ] e12
+	#D -> @#T #DAUX e13
+
+e4:	#L1 -> #DFC @#L1 e37
+	#L1 -> @#L2	e5
+	#L2 -> @#DF #L2 e10
+	#L2 -> @#L3 e11
+	#DF -> @#T #FUN ( #DAUX2 ) { #DS } e6
+	#DF - > @#T #FUN ( #DAUX2 ) { #DS RETORNAR #VAR }	e6
+	#DF -> @#T #FUN ( #DAUX2 ) { #DS RETORNAR #NUM } e6
+	#L3 -> @[ #DS ] e12
+	#L3 -> @[ #DS RETORNAR #VAR ] e12
+	#L3 -> @[ #DS RETORNAR #NUM ] e12
+	#D -> @#T #DAUX e13
+	#T -> @INTEIRO e7
+	#T -> @REAL e8
+	#T -> @BINARIO e9
+	
+e5:	#L1 -> #L2 @ r22
+
+e6:	#DFC -> #T @#FUN (#DAUX2) . e14
+	#FUN -> @NOMEDEFUNCAO e58
+	#DF -> #T @#FUN ( #DAUX2 ) { #DS } e14
+	#DF - > #T @#FUN ( #DAUX2 ) { #DS RETORNAR #VAR }	e14
+	#DF -> #T @#FUN ( #DAUX2 ) { #DS RETORNAR #NUM }	e14
+
+e7:	#T -> INTEIRO @ r4
+
+e8:	#T -> REAL @ r5
+
+e9:	#T -> BINARIO @ r6
+
+e10:	#L2 -> #DF @#L2 e38 //e0 Pergunta sobre isso
+	#L2 -> @#L3 e11
+	#L3 -> @[ #DS ] e12
+	#L3 -> @[ #DS RETORNAR #VAR ] e12
+	#L3 -> @[ #DS RETORNAR #NUM ] e12
+	#D -> @#T #DAUX e13
+	#T -> @INTEIRO e7
+	#T -> @REAL e8
+	#T -> @BINARIO e9
+
+e11:	#L2 -> #L3 @ r24
+
+e12:	#L3 -> [ @#DS ] e15
+	#L3 -> [ @#DS RETORNAR #VAR ] e15
+	#L3 -> [ @#DS RETORNAR #NUM ] e15
+	#DS -> @#D #DS e16
+	#DS -> @#C e17 
+	#D -> @#T #DAUX e13
+	#T -> @INTEIRO e7
+	#T -> @REAL e8
+	#T -> @BINARIO e9
+	#C -> @#AT . #C e18 
+	#C -> @#IF #C e19 
+	#C -> @#WH #C e20 
+	#C -> @#LER #C e21 
+	#C -> @#IMP #C e22 
+	#C -> @&  e23
+	#AT -> @#VAR << #OA e24
+	#AT -> @#VAR << #OPO e24
+    	#AT -> @#VAR << #OL e24
+	#VAR -> @VARIAVEL e25
+	#IF -> @SE #OL { #C } e26
+	#IF -> @SE #OL { #C } #IF2 e26
+	#WH -> @ENQUANTO #OL { #EC } e27
+	#LER -> @LER #VAR . e28
+	#IMP -> @IMPRIMIR #DAUX . e29
+	#IMP -> @IMPRIMIR #NUM . e29
+ 
+e13:	#D -> #T @#DAUX . e30
+	#DAUX -> @#VAR ; #DAUX e31
+	#DAUX -> @#VAR e31
+	#VAR -> @VARIAVEL e25
+
+e14:	#DF -> #T #FUN @( #DAUX2 ) { #DS } e32
+	#DF - > #T #FUN @( #DAUX2 ) { #DS RETORNAR #VAR }	e32
+	#DF -> #T #FUN @( #DAUX2 ) { #DS RETORNAR #NUM }	e32
+
+e15:	#L3 -> [ #DS @] e33
+	#L3 -> [ #DS @RETORNAR #VAR ] e34
+	#L3 -> [ #DS @RETORNAR #NUM ] e34
+
+e16:	#DS -> #D @#DS e39
+	#DS -> @#C e17 
+	#C -> @#AT . #C e18 
+	#C -> @#IF #C e19 
+	#C -> @#WH #C e20 
+	#C -> @#LER #C e21 
+	#C -> @#IMP #C e22 
+	#C -> @&  e23
+	#AT -> @#VAR << #OA e24
+	#AT -> @#VAR << #OPO e24
+    	#AT -> @#VAR << #OL e24
+	#VAR -> @VARIAVEL e25
+	#IF -> @SE #OL { #C } e26
+	#IF -> @SE #OL { #C } #IF2 e26
+	#WH -> @ENQUANTO #OL { #EC } e27
+	#LER -> @LER #VAR . e28
+	#IMP -> @IMPRIMIR #DAUX . e29
+	#IMP -> @IMPRIMIR #NUM . e29
+
+e17:	#DS -> #C @ r29
+
+e18:	#C -> #AT @. #C e35
+
+e19:	#C -> #IF @#C e40
+	#C -> @#AT . #C e18 
+	#C -> @#IF #C e19 
+	#C -> @#WH #C e20 
+	#C -> @#LER #C e21 
+	#C -> @#IMP #C e22 
+	#C -> @&  e23
+	#AT -> @#VAR << #OA e24
+	#AT -> @#VAR << #OPO e24
+    	#AT -> @#VAR << #OL e24
+	#VAR -> @VARIAVEL e25
+	#IF -> @SE #OL { #C } e26
+	#IF -> @SE #OL { #C } #IF2 e26
+	#WH -> @ENQUANTO #OL { #EC } e27
+	#LER -> @LER #VAR . e28
+	#IMP -> @IMPRIMIR #DAUX . e29
+	#IMP -> @IMPRIMIR #NUM . e29
+
+
+e20:	#C -> #WH @#C e41
+	#C -> @#AT . #C e18 
+	#C -> @#IF #C e19 
+	#C -> @#WH #C e20 
+	#C -> @#LER #C e21 
+	#C -> @#IMP #C e22 
+	#C -> @&  e23
+	#AT -> @#VAR << #OA e24
+	#AT -> @#VAR << #OPO e24
+    	#AT -> @#VAR << #OL e24
+	#VAR -> @VARIAVEL e25
+	#IF -> @SE #OL { #C } e26
+	#IF -> @SE #OL { #C } #IF2 e26
+	#WH -> @ENQUANTO #OL { #EC } e27
+	#LER -> @LER #VAR . e28
+	#IMP -> @IMPRIMIR #DAUX . e29
+	#IMP -> @IMPRIMIR #NUM . e29
+
+e21:	#C -> #LER @#C e42
+	#C -> @#AT . #C e18 
+	#C -> @#IF #C e19 
+	#C -> @#WH #C e20 
+	#C -> @#LER #C e21 
+	#C -> @#IMP #C e22 
+	#C -> @&  e23
+	#AT -> @#VAR << #OA e24
+	#AT -> @#VAR << #OPO e24
+    	#AT -> @#VAR << #OL e24
+	#VAR -> @VARIAVEL e25
+	#IF -> @SE #OL { #C } e26
+	#IF -> @SE #OL { #C } #IF2 e26
+	#WH -> @ENQUANTO #OL { #EC } e27
+	#LER -> @LER #VAR . e28
+	#IMP -> @IMPRIMIR #DAUX . e29
+	#IMP -> @IMPRIMIR #NUM . e29
+
+e22:	#C -> #IMP @#C e43
+	#C -> @#AT . #C e18 
+	#C -> @#IF #C e19 
+	#C -> @#WH #C e20 
+	#C -> @#LER #C e21 
+	#C -> @#IMP #C e22 
+	#C -> @&  e23
+	#AT -> @#VAR << #OA e24
+	#AT -> @#VAR << #OPO e24
+    	#AT -> @#VAR << #OL e24
+	#VAR -> @VARIAVEL e25
+	#IF -> @SE #OL { #C } e26
+	#IF -> @SE #OL { #C } #IF2 e26
+	#WH -> @ENQUANTO #OL { #EC } e27
+	#LER -> @LER #VAR . e28
+	#IMP -> @IMPRIMIR #DAUX . e29
+	#IMP -> @IMPRIMIR #NUM . e29
+
+e23:	#C -> &@  r84
+
+e24:	#AT -> #VAR @<< #OA e44
+	#AT -> #VAR @<< #OPO e44
+    	#AT -> #VAR @<< #OL e44
+
+e25:	#VAR -> VARIAVEL @ r20
+e26:	#IF -> SE @#OL { #C } e45
+	#IF -> SE @#OL { #C } #IF2 e45
+	#OL -> @#OPOL #OPL #OPOL e46
+	#OL -> @#OL #OPL #OL e47 
+	#OL -> @#OL #OPL #OPOL e47
+	#OL -> @#OA #OPL1 #OA e48 
+	#OL -> @#OPO #OPL1 #OPO e49 
+	#OL -> @(#OL) e50
+	#OL -> @#OPOL e46
+	#OPOL -> @#VAR e51 
+	#OPOL -> @NAO #VAR e52
+	#OPOL -> @#BOOL e53 
+	#OPOL -> @#CHAFUN e54 
+	#OPOL -> @NAO #CHAFUN e52
+	#VAR -> @VARIAVEL e25
+	#BOOL -> @SIM e55
+	#BOOL -> @NAO e55
+	#CHAFUN -> @#FUN ( #PARAMS ) e56
+	 #CHAFUN -> @#FUN ( ) e56
+	#FUN -> @NOMEDEFUNCAO e58
+	#OA -> @#OPO #OPE #OPO e49
+	#OA -> @#OA #OPE #OA e48
+	#OA -> @#OA #OPE #OPO e48
+	#OA -> @(#OA) e50
+	#OPO -> @#VAR e59
+	#OPO -> @#NUM e60
+	#OPO -> @#CHAFUN e61
+	#NUM -> @Constante e62
+
+e27:	#WH -> ENQUANTO @#OL { #EC } e63
+	#OL -> @#OPOL #OPL #OPOL e46
+	#OL -> @#OL #OPL #OL e47 
+	#OL -> @#OL #OPL #OPOL e47
+	#OL -> @#OA #OPL1 #OA e48 
+	#OL -> @#OPO #OPL1 #OPO e49 
+	#OL -> @(#OL) e50
+	#OL -> @#OPOL e46
+	#OPOL -> @#VAR e51 
+	#OPOL -> @NAO #VAR e52
+	#OPOL -> @#BOOL e53 
+	#OPOL -> @#CHAFUN e54 
+	#OPOL -> @NAO #CHAFUN e52
+	#VAR -> @VARIAVEL e25
+	#BOOL -> @SIM e55
+	#BOOL -> @NAO e55
+	#CHAFUN -> @#FUN ( #PARAMS ) e56
+	 #CHAFUN -> @#FUN ( ) e56
+	#FUN -> @NOMEDEFUNCAO e58
+	#OA -> @#OPO #OPE #OPO e49
+	#OA -> @#OA #OPE #OA e48
+	#OA -> @#OA #OPE #OPO e48
+	#OA -> @(#OA) e50
+	#OPO -> @#VAR e59
+	#OPO -> @#NUM e60
+	#OPO -> @#CHAFUN e61
+	#NUM -> @Constante e62
+
+e28:	#LER -> LER @#VAR . e63
+	#VAR -> @VARIAVEL e25
+
+e29:	#IMP -> IMPRIMIR @#DAUX . e64
+	#IMP -> IMPRIMIR @#NUM . e65
+	#DAUX -> @#VAR ; #DAUX e31
+	#DAUX -> @#VAR e31
+	#VAR -> @VARIAVEL e25
+	#NUM -> @Constante e62
+
+e30:	#D -> #T #DAUX @. e66
+
+e31:	#DAUX -> #VAR @; #DAUX e67
+	#DAUX -> #VAR @ r8
+
+e32:	#DF -> #T #FUN ( @#DAUX2 ) { #DS } e68
+	#DF - > #T #FUN ( @#DAUX2 ) { #DS RETORNAR #VAR }	e68
+	#DF -> #T #FUN ( @#DAUX2 ) { #DS RETORNAR #NUM }	e68
+	#DAUX2 -> @#T #DAUX e69
+	#DAUX2 -> @#DAUX2 ; #DAUX2 e70
+	#DAUX2 -> @& e71
+	#T -> @INTEIRO e7
+	#T -> @REAL e8
+	#T -> @BINARIO e9
+
+e33:	#L3 -> [ #DS ] @ r25
+
+e34:	#L3 -> [ #DS RETORNAR @#VAR ] e72
+	#L3 -> [ #DS RETORNAR @#NUM ] e73
+	#VAR -> @VARIAVEL e25
+	#NUM -> @Constante e62
+
+
+e35:	#C -> #AT . @#C e74
+	#C -> @#AT . #C e18 
+	#C -> @#IF #C e19 
+	#C -> @#WH #C e20 
+	#C -> @#LER #C e21 
+	#C -> @#IMP #C e22 
+	#C -> @&  e23
+	#AT -> @#VAR << #OA e24
+	#AT -> @#VAR << #OPO e24
+    	#AT -> @#VAR << #OL e24
+	#VAR -> @VARIAVEL e25
+	#IF -> @SE #OL { #C } e26
+	#IF -> @SE #OL { #C } #IF2 e26
+	#WH -> @ENQUANTO #OL { #EC } e27
+	#LER -> @LER #VAR . e28
+	#IMP -> @IMPRIMIR #DAUX . e29
+	#IMP -> @IMPRIMIR #NUM . e29
+
+e36:	#S -> #D #S @ r2
+
+e37:	#L1 -> #DFC #L1 @ r21
+
+e38:	#L2 -> #DF #L2 @ r23
+
+e39:	#DS -> #D #DS @ r28
+
+e40:	#C -> #IF #C @ r69
+
+e41:	#C -> #WH #C @ r74
+
+e42:	#C -> #LER #C @ r79
+
+e43:	#C -> #IMP #C @ r81
+
+e44:	#AT -> #VAR << @#OA e75 
+	#AT -> #VAR << @#OPO e75
+    	#AT -> #VAR << @#OL e75
+	#OA -> @#OPO #OPE #OPO e49
+	#OA -> @#OA #OPE #OA e48
+	#OA -> @#OA #OPE #OPO e48
+	#OA -> @(#OA) e50
+	#OPO -> @#VAR e59
+	#OPO -> @#NUM e60
+	#OPO -> @#CHAFUN e61
+	#VAR -> @VARIAVEL e25
+	#NUM -> @Constante e62
+	#CHAFUN -> @#FUN ( #PARAMS ) e56
+	 #CHAFUN -> @#FUN ( ) e56
+
+e45:	#IF -> SE #OL @{ #C } e76
+	#IF -> SE #OL @{ #C } #IF2 e76
+
+e46:	#OL -> #OPOL @#OPL #OPOL e77
+	#OL -> #OPOL @ r51
+	#OPL -> @= e78
+	#OPL -> @<> e79
+	#OPL -> @E e80
+	#OPL -> @OU e81
+
+
+e47:	#OL -> #OL @#OPL #OL e82
+	#OL -> #OL @#OPL #OPOL e82
+	#OPL -> @= e78
+	#OPL -> @<> e79
+	#OPL -> @E e80
+	#OPL -> @OU e81
+
+e48:	#OL -> #OA @#OPL1 #OA e114
+	#OA -> #OA @#OPE #OA e83
+	#OA -> #OA @#OPE #OPO e83
+	#OPL1 -> @= e84
+	#OPL1 -> @<> e85
+	#OPL1 -> @< e86
+	#OPL1 -> @<= e87
+	#OPL1 -> @> e88
+	#OPL1 -> @>= e89
+	#OPE -> @+ e90
+	#OPE -> @- e91
+	#OPE -> @* e92
+	#OPE -> @/ e93
+
+e49:	#OL -> #OPO @#OPL1 #OPO e94
+	#OA -> #OPO @#OPE #OPO e95
+	#OPL1 -> @= e84
+	#OPL1 -> @<> e85
+	#OPL1 -> @< e86
+	#OPL1 -> @<= e87
+	#OPL1 -> @> e88
+	#OPL1 -> @>= e89
+	#OPE -> @+ e90
+	#OPE -> @- e91
+	#OPE -> @* e92
+	#OPE -> @/ e93
+
+e50:	#OL -> ( @#OL ) e96
+	#OA -> ( @#OA ) e97
+	#OL -> @#OPOL #OPL #OPOL e46
+	#OL -> @#OL #OPL #OL e47 
+	#OL -> @#OL #OPL #OPOL e47
+	#OL -> @#OA #OPL1 #OA e48 
+	#OL -> @#OPO #OPL1 #OPO e49 
+	#OL -> @(#OL) e50
+	#OL -> @#OPOL e46
+	#OPOL -> @#VAR e51 
+	#OPOL -> @NAO #VAR e52
+	#OPOL -> @#BOOL e53 
+	#OPOL -> @#CHAFUN e54 
+	#OPOL -> @NAO #CHAFUN e52
+	#VAR -> @VARIAVEL e25
+	#BOOL -> @SIM e55
+	#BOOL -> @NAO e55
+	#CHAFUN -> @#FUN ( #PARAMS ) e56
+	 #CHAFUN -> @#FUN ( ) e56
+	#FUN -> @NOMEDEFUNCAO e58
+	#OA -> @#OPO #OPE #OPO e49
+	#OA -> @#OA #OPE #OA e48
+	#OA -> @#OA #OPE #OPO e48
+	#OA -> @(#OA) e50
+	#OPO -> @#VAR e59
+	#OPO -> @#NUM e60
+	#OPO -> @#CHAFUN e61
+	#NUM -> @Constante e62
+
+e51:	#OPOL -> #VAR @ r52
+
+e52:	#OPOL -> NAO @#CHAFUN e97
+	#OPOL -> NAO @#VAR e98
+	#CHAFUN -> @#FUN ( #PARAMS ) e56
+	 #CHAFUN -> @#FUN ( ) e56
+	#FUN -> @NOMEDEFUNCAO e58
+	#VAR -> @VARIAVEL e25
+
+e53:	#OPOL -> #BOOL @ r54
+
+
+e54:	#OPOL -> #CHAFUN @ r55
+	#CHAFUN -> @#FUN ( #PARAMS ) e56
+	#CHAFUN -> @#FUN ( ) e56
+	#FUN -> @NOMEDEFUNCAO e58
+
+e55:	#BOOL -> SIM @ r57
+	#BOOL -> NAO @ r58
+
+e56:	#CHAFUN -> #FUN @( #PARAMS ) e57
+	 #CHAFUN -> #FUN @( ) e57
+
+e57:	#CHAFUN -> #FUN ( @#PARAMS ) e99
+	#CHAFUN -> #FUN ( @) e100
+	#PARAMS -> @#DAUX e101
+	#DAUX -> @#VAR ; #DAUX e31
+	#DAUX -> @#VAR e31
+	#VAR -> @VARIAVEL e25
+ 
+e58:	#FUN -> NOMEDEFUNCAO @ r13
+
+e59:	#OPO -> #VAR @ r38
+
+e60:	#OPO -> #NUM @ r39
+	
+e61:	#OPO -> #CHAFUN @ r40
+	
+e62:	#NUM -> Constante @ r85
+
+e63:	#WH -> ENQUANTO #OL @{ #EC } e102
+
+e64:	#IMP -> IMPRIMIR #DAUX @. e103
+
+e65:	#IMP -> IMPRIMIR #NUM @. e104
+
+e66:	#D -> #T #DAUX . @ r3
+
+e67:	#DAUX -> #VAR ; @#DAUX e105
+	#DAUX -> @#VAR e31
+	#VAR -> @VARIAVEL e25
+
+e68:	#DF -> #T #FUN ( #DAUX2 @) { #DS } e106
+	#DF - > #T #FUN ( #DAUX2 @) { #DS RETORNAR #VAR }	e106
+	#DF -> #T #FUN ( #DAUX2 @) { #DS RETORNAR #NUM }	e106
+
+
+e69:	#DAUX2 -> #T @#DAUX e107
+	#DAUX -> @#VAR ; #DAUX e31
+	#DAUX -> @#VAR e31
+	#VAR -> @VARIAVEL e25
+
+e70:	#DAUX2 -> #DAUX2 @; #DAUX2 e108
+
+e71:	#DAUX2 -> & @ r16
+
+e72:	#L3 -> [ #DS RETORNAR #VAR @] e109
+
+e73:	#L3 -> [ #DS RETORNAR #NUM @] e110
+
+e74:	#C -> #AT . #C @ r30
+e75:	#AT -> #VAR << #OA @ r31
+e76:	#IF -> SE #OL { @#C } e111
+	#IF -> SE #OL { @#C } #IF2 e111
+	#C -> @#AT . #C e18 
+	#C -> @#IF #C e19 
+	#C -> @#WH #C e20 
+	#C -> @#LER #C e21 
+	#C -> @#IMP #C e22 
+	#C -> @&  e23
+	#AT -> @#VAR << #OA e24
+	#AT -> @#VAR << #OPO e24
+    	#AT -> @#VAR << #OL e24
+	#VAR -> @VARIAVEL e25
+	#IF -> @SE #OL { #C } e26
+	#IF -> @SE #OL { #C } #IF2 e26
+	#WH -> @ENQUANTO #OL { #EC } e27
+	#LER -> @LER #VAR . e28
+	#IMP -> @IMPRIMIR #DAUX . e29
+	#IMP -> @IMPRIMIR #NUM . e29
+
+e77:	#OL -> #OPOL #OPL @#OPOL e112
+	#OPOL -> @#VAR e51 
+	#OPOL -> @NAO #VAR e52
+	#OPOL -> @#BOOL e53 
+	#OPOL -> @#CHAFUN e54 
+	#OPOL -> @NAO #CHAFUN e52
+	#VAR -> @VARIAVEL e25
+	#BOOL -> @SIM e55
+	#BOOL -> @NAO e55
+	#CHAFUN -> @#FUN ( #PARAMS ) e56
+	 #CHAFUN -> @#FUN ( ) e56
+	#FUN -> @NOMEDEFUNCAO e58
+
+e78:	#OPL -> = @ r59
+	
+e79:	#OPL -> <> @ r60
+	
+e80:	#OPL -> E @ r61
+	
+e81:	#OPL -> OU @ r62
+		
+e82:	#OL -> #OL #OPL @#OL e113
+	#OL -> #OL #OPL @#OPOL e115
+	#OL -> @#OPOL #OPL #OPOL e46
+	#OL -> @#OL #OPL #OL e47 
+	#OL -> @#OL #OPL #OPOL e47
+	#OL -> @#OA #OPL1 #OA e48 
+	#OL -> @#OPO #OPL1 #OPO e49 
+	#OL -> @(#OL) e50
+	#OL -> @#OPOL e46
+	#OPOL -> @#VAR e51 
+	#OPOL -> @NAO #VAR e52
+	#OPOL -> @#BOOL e53 
+	#OPOL -> @#CHAFUN e54 
+	#OPOL -> @NAO #CHAFUN e52
+	#VAR -> @VARIAVEL e25
+	#BOOL -> @SIM e55
+	#BOOL -> @NAO e55
+	#CHAFUN -> @#FUN ( #PARAMS ) e56
+	 #CHAFUN -> @#FUN ( ) e56
+	#FUN -> @NOMEDEFUNCAO e58
+	#OA -> @#OPO #OPE #OPO e49
+	#OA -> @#OA #OPE #OA e48
+	#OA -> @#OA #OPE #OPO e48
+	#OA -> @(#OA) e50
+	#OPO -> @#VAR e59
+	#OPO -> @#NUM e60
+	#OPO -> @#CHAFUN e61
+	#NUM -> @Constante e62
+
+e83:	#OA -> #OA #OPE @#OA e116
+	#OA -> #OA #OPE @#OPO e117
+	#OA -> @#OPO #OPE #OPO e49
+	#OA -> @#OA #OPE #OA e48
+	#OA -> @#OA #OPE #OPO e48
+	#OA -> @(#OA) e50
+	#OPO -> @#VAR e59
+	#OPO -> @#NUM e60
+	#OPO -> @#CHAFUN e61
+	#NUM -> @Constante e62
+
+e84:	#OPL1 -> = @ r63
+
+e85:	#OPL1 -> <> @ r64
+
+e86:	#OPL1 -> < @ r65
+
+e87:	#OPL1 -> <= @ r66
+
+e88:	#OPL1 -> > @ r67
+
+e89:	#OPL1 -> >= @ r68
+
+e90:	#OPE -> + @ r41
+	
+e91:	#OPE -> - @ r42
+
+e92:	#OPE -> * @ r43
+
+e93:	#OPE -> / @ r44
+
+e94:	#OL -> #OPO #OPL1 @#OPO e118
+	#OPO -> @#VAR e59
+	#OPO -> @#NUM e60
+	#OPO -> @#CHAFUN e61
+	#NUM -> @Constante e62
+	#CHAFUN -> @#FUN ( #PARAMS ) e56
+	 #CHAFUN -> @#FUN ( ) e56
+	#VAR -> @VARIAVEL e25
+	
+e95:	#OA -> #OPO #OPE @#OPO e119
+	#OPO -> @#VAR e59
+	#OPO -> @#NUM e60
+	#OPO -> @#CHAFUN e61
+	#NUM -> @Constante e62
+	#CHAFUN -> @#FUN ( #PARAMS ) e56
+	 #CHAFUN -> @#FUN ( ) e56
+	#VAR -> @VARIAVEL e25
+
+
+e96:	#OL -> ( #OL @) e120
+	
+e97:	#OA -> ( #OA @) e121
+
+e98:	#OPOL -> NAO #VAR @ r53
+
+e99:	#CHAFUN -> #FUN ( #PARAMS @) e122
+
+e100:	#CHAFUN -> #FUN ( ) @ r18
+
+e101:	#PARAMS -> #DAUX @ r19
+
+e102:	#WH -> ENQUANTO #OL { @#EC } e123
+	#EC -> @#C e124
+	#EC -> @PARAR e125
+	#EC -> @CONTINUAR e126
+	#C -> @#AT . #C e18 
+	#C -> @#IF #C e19 
+	#C -> @#WH #C e20 
+	#C -> @#LER #C e21 
+	#C -> @#IMP #C e22 
+	#C -> @&  e23
+	#AT -> @#VAR << #OA e24
+	#AT -> @#VAR << #OPO e24
+    	#AT -> @#VAR << #OL e24
+	#VAR -> @VARIAVEL e25
+	#IF -> @SE #OL { #C } e26
+	#IF -> @SE #OL { #C } #IF2 e26
+	#WH -> @ENQUANTO #OL { #EC } e27
+	#LER -> @LER #VAR . e28
+	#IMP -> @IMPRIMIR #DAUX . e29
+	#IMP -> @IMPRIMIR #NUM . e29
+
+e103:	#IMP -> IMPRIMIR #DAUX . @ r82
+
+e104:	#IMP -> IMPRIMIR #NUM . @ r83
+
+e105:	#DAUX -> #VAR ; #DAUX @ r7
+
+e106:	#DF -> #T #FUN ( #DAUX2 ) @{ #DS } e127
+	#DF - > #T #FUN ( #DAUX2 ) @{ #DS RETORNAR #VAR }	e127
+	#DF -> #T #FUN ( #DAUX2 ) @{ #DS RETORNAR #NUM }	e127
+
+e107:	#DAUX2 -> #T #DAUX @ r14
+
+e108:	#DAUX2 -> #DAUX2 ; @#DAUX2 e128
+	#DAUX2 -> @#T #DAUX e69
+	#DAUX2 -> @#DAUX2 ; #DAUX2 e70
+	#DAUX2 -> @& e71
+	#T -> @INTEIRO e7
+	#T -> @REAL e8
+	#T -> @BINARIO e9
+
+e109:	#L3 -> [ #DS RETORNAR #VAR ] @ r26	
+
+e110:	#L3 -> [ #DS RETORNAR #NUM ] @ r27
+
+e111:	#IF -> SE #OL { #C @} e129
+	#IF -> SE #OL { #C @} #IF2 e129
+
+e112:	#OL -> #OPOL #OPL #OPOL @ r45
+
+e113:	#OL -> #OL #OPL #OL @ r46
+
+e114:	#OL -> #OA #OPL1 #OA e130			
+	#OA -> @#OPO #OPE #OPO e49
+	#OA -> @#OA #OPE #OA e48
+	#OA -> @#OA #OPE #OPO e48
+	#OA -> @(#OA) e50
+	#OPO -> @#VAR e59
+	#OPO -> @#NUM e60
+	#OPO -> @#CHAFUN e61
+	#NUM -> @Constante e62
+
+e115:	#OL -> #OL #OPL #OPOL @ r47
+
+e116:	#OA -> #OA #OPE #OA @ r35
+
+e117:	#OA -> #OA #OPE #OPO @ r36
+
+e118:	#OL -> #OPO #OPL1 #OPO @ r49
+
+e119:	#OA -> #OPO #OPE #OPO @ r34
+
+e120:	#OL -> ( #OL ) @ r50
+	
+e121:	#OA -> ( #OA ) @ r37
+
+e122:	#CHAFUN -> #FUN ( #PARAMS ) @ r17
+
+e123:	#WH -> ENQUANTO #OL { #EC @} e131
+
+e124:	#EC -> #C @ r76
+
+e125:	#EC -> PARAR @ r77
+
+e126:	#EC -> CONTINUAR @ r78
+
+e127:	#DF -> #T #FUN ( #DAUX2 ) { @#DS } e132
+	#DF - > #T #FUN ( #DAUX2 ) { @#DS RETORNAR #VAR }	e132
+	#DF -> #T #FUN ( #DAUX2 ) { @#DS RETORNAR #NUM }	e132
+	#DS -> @#D #DS e16
+	#DS -> @#C e17 
+	#D -> @#T #DAUX e13
+	#T -> @INTEIRO e7
+	#T -> @REAL e8
+	#T -> @BINARIO e9
+	#C -> @#AT . #C e18 
+	#C -> @#IF #C e19 
+	#C -> @#WH #C e20 
+	#C -> @#LER #C e21 
+	#C -> @#IMP #C e22 
+	#C -> @&  e23
+	#AT -> @#VAR << #OA e24
+	#AT -> @#VAR << #OPO e24
+    	#AT -> @#VAR << #OL e24
+	#VAR -> @VARIAVEL e25
+	#IF -> @SE #OL { #C } e26
+	#IF -> @SE #OL { #C } #IF2 e26
+	#WH -> @ENQUANTO #OL { #EC } e27
+	#LER -> @LER #VAR . e28
+	#IMP -> @IMPRIMIR #DAUX . e29
+	#IMP -> @IMPRIMIR #NUM . e29
+
+e128:	#DAUX2 -> #DAUX2 ; #DAUX2 @ r15
+
+e129:	#IF -> SE #OL { #C } @ r70
+	#IF -> SE #OL { #C } @#IF2 e133
+	#IF2 -> @SENAO SE #OL { #C } #IF2 e136
+    	#IF2 -> @SENAO { #C } e136
+
+
+e130:	#OL -> #OA #OPL1 #OA @ r48
+
+e131:	#WH -> ENQUANTO #OL { #EC } @ r75
+
+e132:	#DF -> #T #FUN ( #DAUX2 ) { #DS @} e134
+	#DF - > #T #FUN ( #DAUX2 ) { #DS @RETORNAR #VAR }	e135
+	#DF -> #T #FUN ( #DAUX2 ) { #DS @RETORNAR #NUM }	e135
+
+e133:	#IF -> SE #OL { #C } #IF2 @ r71
+
+e134:	#DF -> #T #FUN ( #DAUX2 ) { #DS } @ r9
+
+e135:	#DF - > #T #FUN ( #DAUX2 ) { #DS RETORNAR @#VAR }	e137
+	#DF -> #T #FUN ( #DAUX2 ) { #DS RETORNAR @#NUM }	e138
+	#VAR -> @VARIAVEL e25
+	#NUM -> @Constante e62
+
+e136:	#IF2 -> SENAO @SE #OL { #C } #IF2 e139
+    	#IF2 -> SENAO @{ #C } e140
+
+e137:	#DF - > #T #FUN ( #DAUX2 ) { #DS RETORNAR #VAR @}	e141
+
+e138:	#DF -> #T #FUN ( #DAUX2 ) { #DS RETORNAR #NUM @}	e142
+
+e139:	#IF2 -> SENAO SE @#OL { #C } #IF2 e143
+	#OL -> @#OPOL #OPL #OPOL e46
+	#OL -> @#OL #OPL #OL e47 
+	#OL -> @#OL #OPL #OPOL e47
+	#OL -> @#OA #OPL1 #OA e48 
+	#OL -> @#OPO #OPL1 #OPO e49 
+	#OL -> @(#OL) e50
+	#OL -> @#OPOL e46
+	#OPOL -> @#VAR e51 
+	#OPOL -> @NAO #VAR e52
+	#OPOL -> @#BOOL e53 
+	#OPOL -> @#CHAFUN e54 
+	#OPOL -> @NAO #CHAFUN e52
+	#VAR -> @VARIAVEL e25
+	#BOOL -> @SIM e55
+	#BOOL -> @NAO e55
+	#CHAFUN -> @#FUN ( #PARAMS ) e56
+	 #CHAFUN -> @#FUN ( ) e56
+	#FUN -> @NOMEDEFUNCAO e58
+	#OA -> @#OPO #OPE #OPO e49
+	#OA -> @#OA #OPE #OA e48
+	#OA -> @#OA #OPE #OPO e48
+	#OA -> @(#OA) e50
+	#OPO -> @#VAR e59
+	#OPO -> @#NUM e60
+	#OPO -> @#CHAFUN e61
+	#NUM -> @Constante e62
+	
+e140:	#IF2 -> SENAO { @#C } e144
+	#C -> @#AT . #C e18 
+	#C -> @#IF #C e19 
+	#C -> @#WH #C e20 
+	#C -> @#LER #C e21 
+	#C -> @#IMP #C e22 
+	#C -> @&  e23
+	#AT -> @#VAR << #OA e24
+	#AT -> @#VAR << #OPO e24
+    	#AT -> @#VAR << #OL e24
+	#VAR -> @VARIAVEL e25
+	#IF -> @SE #OL { #C } e26
+	#IF -> @SE #OL { #C } #IF2 e26
+	#WH -> @ENQUANTO #OL { #EC } e27
+	#LER -> @LER #VAR . e28
+	#IMP -> @IMPRIMIR #DAUX . e29
+	#IMP -> @IMPRIMIR #NUM . e29
+
+e141:	#DF - > #T #FUN ( #DAUX2 ) { #DS RETORNAR #VAR } @ r10
+
+e142:	#DF -> #T #FUN ( #DAUX2 ) { #DS RETORNAR #NUM } @ r11
+
+e143:	#IF2 -> SENAO SE #OL @{ #C } #IF2 e145
+
+e144:	#IF2 -> SENAO { #C @} e146
+
+e145:	#IF2 -> SENAO SE #OL { @#C } #IF2 e147
+	#C -> @#AT . #C e18 
+	#C -> @#IF #C e19 
+	#C -> @#WH #C e20 
+	#C -> @#LER #C e21 
+	#C -> @#IMP #C e22 
+	#C -> @&  e23
+	#AT -> @#VAR << #OA e24
+	#AT -> @#VAR << #OPO e24
+    	#AT -> @#VAR << #OL e24
+	#VAR -> @VARIAVEL e25
+	#IF -> @SE #OL { #C } e26
+	#IF -> @SE #OL { #C } #IF2 e26
+	#WH -> @ENQUANTO #OL { #EC } e27
+	#LER -> @LER #VAR . e28
+	#IMP -> @IMPRIMIR #DAUX . e29
+	#IMP -> @IMPRIMIR #NUM . e29
+
+e146:	#IF2 -> SENAO { #C } @ r73
+
+e147:	#IF2 -> SENAO SE #OL { #C @} #IF2 e148
+
+e148:	#IF2 -> SENAO SE #OL { #C } @#IF2 e149
+	#IF2 -> @SENAO SE #OL { #C } #IF2 e136
+    	#IF2 -> @SENAO { #C } e136
+
+e149:	#IF2 -> SENAO SE #OL { #C } #IF2 @ r72

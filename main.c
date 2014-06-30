@@ -23,9 +23,9 @@ int tokens_counter = 0;
 bool lexic_ok = true;
 Stack *states_stack = NULL;
 Stack *tokens_stack = NULL;
-char* table[164][63];
-char* vocabulary[72];
-char* reductions[86];
+char* table[164][66];
+char* vocabulary[66];
+char* reductions[74];
 
 void saveToken(char* token){
 	tokens_counter++;
@@ -487,7 +487,7 @@ int main(int argc, char **argv) {
 	if(argc >= 1){
 		//printf("%d\n",argc);
 		FILE *f;
-		f = fopen("Debug/exemplo","r");
+		f = fopen("Debug/exemplos/exemplo3.c141","r");
 		//f = fopen(argv[1],"r");
 
 		/*
@@ -589,11 +589,12 @@ int main(int argc, char **argv) {
 					}
 				}
 				if(c=='\n'){
-					//vocabulary[v_counter] = str;
-					//v_counter++;
+					vocabulary[v_counter] = str;
+					v_counter++;
+					str = NULL;
 				}
-				for(i=0;i<72;i++){
-					//printf("Vocabulary: %s\n",vocabulary[i]);
+				for(i=0;i<66;i++){
+					//printf("Vocabulary %d: %s\n",i,vocabulary[i]);
 				}
 				str = NULL;
 				fscanf(fv,"%c",&c);
@@ -602,16 +603,18 @@ int main(int argc, char **argv) {
 				fscanf(fv,"%c",&c);
 				int row = 0, col = 0;
 
-				while(c != EOF && col <= 63 && ftell(fv) < file_size){
+				//printf("V counter %d\n",v_counter);
+				//Carregar tabela
+				while(c != EOF && col < v_counter && ftell(fv) < file_size){
 
-					while(c!='\n' && c!= EOF && col <= 63 && ftell(fv) < file_size){
+					while(c!='\n' && c!= EOF && col <= v_counter && ftell(fv) < file_size){
 						//printf("%c\n",c);
 						//printf("%s ,",str);
 						str = append(str,c);
 						//printf("%s ,",str);
 						fscanf(fv,"%c",&c);
 						//printf("c2:%c\n",c);
-						while(c!=' '  && ftell(fv) < file_size){
+						while(c!=' ' && c!='\r' && c!='\n' && ftell(fv) < file_size){
 							str = append(str,c);
 							fscanf(fv,"%c",&c);
 							//printf("c3:%c\n",c);
@@ -650,15 +653,15 @@ int main(int argc, char **argv) {
 					//printf("c1:%c\n",c);
 				}
 				fscanf(fv,"%c",&c);
-				table[163][62] = append(table[163][62],c);
+				table[163][v_counter-1] = append(table[163][v_counter-1],c);
 				//printf("%s\n",table[149][71]);
-				//printf("fclose\n");
+				printf("row:%d\n",row);
 				fclose(fv);
 
 				int j = 0;
 
 				for(i=0;i<164;i++){
-					for(j=0;j<62;j++){
+					for(j=0;j<v_counter;j++){
 						printf("%s ",table[i][j]);
 					}
 					j=0;
@@ -668,11 +671,9 @@ int main(int argc, char **argv) {
 
 				loadreductions();
 
-
-
-				//for(i = 0; i<86; i++){
-					//printf("Reducoes: %s\n",reductions[i]);
-				//}
+				for(i = 0; i<74; i++){
+					printf("Reducoes %d: %s\n",i,reductions[i]);
+				}
 
 				states_stack = (Stack*)malloc(sizeof(Stack));
 				states_stack->state = 0;
@@ -686,14 +687,14 @@ int main(int argc, char **argv) {
 
 				push(&tokens_stack,-1,"$");
 				for(j=tokens_counter-1;j>=0;j--){
-					printf("t:%s\n",tokens[j]);
+					//printf("t:%s\n",tokens[j]);
 					push(&tokens_stack,-1,tokens[j]);
 				}
 				bool accept = false;
 				bool error = false;
 				Stack *top = get(tokens_stack);
 				while (top != NULL){
-					printf("print %s\n",top->str);
+					//printf("print %s\n",top->str);
 					top = top->prev;
 				}
 
