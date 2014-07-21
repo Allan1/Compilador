@@ -5,16 +5,26 @@
  *
  *
  */
+
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+//------------CONSTANTES--------------
+int n_max_reduction = 76;
+int n_max_vocabulary = 66;
+int n_max_states = 166;
+//____________________________________
 
 typedef struct Stack {
     int state;
     char *str;
     struct Stack* prev;
 } Stack;
+
+
 
 static char* r_words[] = {"BINARIO","CONTINUAR","E","ENQUANTO","INTEIRO","IMPRIMIR","LER","NAO","OU","PARAR","REAL","RETORNAR","SE","SENAO","SIM"};
 static char* r_simb[] = {"+","-","*","/",">","<","[","]","=","<>","<<",".",";","@","(",")","{","}",">=","<="};
@@ -23,9 +33,14 @@ int tokens_counter = 0;
 bool lexic_ok = true;
 Stack *states_stack = NULL;
 Stack *tokens_stack = NULL;
-char* table[164][66];
+//char* table[n_max_states][n_max_vocabulary];
+//char* vocabulary[n_max_vocabulary];
+//char* reductions[n_max_reduction];
+char* table[166][66];
 char* vocabulary[66];
-char* reductions[74];
+char* reductions[76];
+
+
 
 void saveToken(char* token){
 	tokens_counter++;
@@ -393,7 +408,7 @@ int posInVocabulary(char* token){
 	int i,l;
 	int pos = -1;
 	if(token!=NULL){
-		for(l=0;l<74 && pos==-1;l++){
+		for(l=0;l<n_max_vocabulary && pos==-1;l++){
 			//printf("token:%d , vocabulary:%d\n",strlen(token),strlen(vocabulary[l]));
 			for(i=0;i<strlen(token) && strlen(token)==strlen(vocabulary[l]);i++){
 				if(vocabulary[l][i]!=token[i]){
@@ -488,8 +503,8 @@ int main(int argc, char **argv) {
 	if(argc >= 1){
 		//printf("%d\n",argc);
 		FILE *f;
-		f = fopen("Debug/exemplos/exemplo3.c141","r");
-		//f = fopen(argv[1],"r");
+		//f = fopen("Debug/exemplos/exemplo3.c141","r");
+		f = fopen(argv[1],"r");
 
 		/*
 		 * Inicio da analise lexica
@@ -594,9 +609,9 @@ int main(int argc, char **argv) {
 					v_counter++;
 					str = NULL;
 				}
-				for(i=0;i<66;i++){
-					printf("Vocabulary %d: %s\n",i,vocabulary[i]);
-				}
+				//for(i=0;i<n_max_vocabulary;i++){
+					//printf("Vocabulary %d: %s\n",i,vocabulary[i]);
+				//}
 				str = NULL;
 				fscanf(fv,"%c",&c);
 				while(c !=' ')
@@ -654,27 +669,27 @@ int main(int argc, char **argv) {
 					//printf("c1:%c\n",c);
 				}
 				fscanf(fv,"%c",&c);
-				table[163][v_counter-1] = append(table[163][v_counter-1],c);
+				table[n_max_states-1][v_counter-1] = append(table[n_max_states-1][v_counter-1],c);
 				//printf("%s\n",table[149][71]);
-				printf("row:%d\n",row);
+				//printf("row:%d\n",row);
 				fclose(fv);
 
 				int j = 0;
 
-				for(i=0;i<164;i++){
-					for(j=0;j<v_counter;j++){
-						printf("%s ",table[i][j]);
-					}
-					j=0;
-					printf("\n");
-				}
+				//for(i=0;i<n_max_states;i++){
+					//for(j=0;j<v_counter;j++){
+						//printf("%s ",table[i][j]);
+					//}
+					//j=0;
+					//printf("\n");
+				//}
 
 
 				loadreductions();
 
-				for(i = 0; i<74; i++){
-					printf("Reducoes %d: %s\n",i,reductions[i]);
-				}
+				//for(i = 0; i<n_max_reduction; i++){
+					//printf("Reducoes %d: %s\n",i,reductions[i]);
+				//}
 
 				states_stack = (Stack*)malloc(sizeof(Stack));
 				states_stack->state = 0;
@@ -727,9 +742,9 @@ int main(int argc, char **argv) {
 						vocabulary_pos = posInVocabulary(current_token->str);
 						type = current_token->str;
 					}
-					printf("Token:%s , pos:%d, current_state:%d\n",current_token->str, vocabulary_pos,current_state);
+					//printf("Token:%s , pos:%d, current_state:%d\n",current_token->str, vocabulary_pos,current_state);
 					if(vocabulary_pos!=-1){
-						printf("table:%s\n",table[current_state][vocabulary_pos]);
+						//printf("table:%s\n",table[current_state][vocabulary_pos]);
 						char* cell = table[current_state][vocabulary_pos];
 						if (cell[0] == 'X'){
 							error = true;
@@ -766,7 +781,7 @@ int main(int argc, char **argv) {
 									str = append(str,redu_name[i]);
 									i++;
 								}
-								if(str != ' ' && str != NULL){
+								if(str != NULL && str!=" "){
 									number_reduction++;
 									split_second = (char**)realloc(tokens,sizeof(char*)*number_reduction);
 									split_second[number_reduction-1] = str;
@@ -812,3 +827,4 @@ int main(int argc, char **argv) {
 
 	return 0;
 }
+
