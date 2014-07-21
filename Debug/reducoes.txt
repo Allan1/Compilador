@@ -1,13 +1,13 @@
-r0:  #SS -> #S $end
-r1:  #S -> #DV #CB #DF #PP
-r2:  #DV -> #TP #LI . #DV
-r3:  #DV -> #VAZIO
-r4:  #CB -> #TP #ID ( #LT ) . #CB
-r5:  #CB -> #VAZIO
-r6:  #DF -> #TP #ID ( #LTI ) { #DV #CMDS } #DF
-r7:  #DF -> #VAZIO
-r8:  #PP -> [ #DV #CMDS ]
-r9:  #PP -> [ ]
+r0: #SS -> #S $end
+r1: #S -> #DV #CB #DF #PP
+r2: #DV -> #TP #LI #DV
+r3: #DV -> #VAZIO
+r4: #CB -> #TP #ID ( #LT ) . #CB
+r5: #CB -> #VAZIO
+r6: #DF -> #TP #ID ( #LTI ) { #DV #CMDS } #DF
+r7: #DF -> #VAZIO
+r8: #PP -> [ #DV #CMDS ]
+r9: #PP -> [ ]
 r10: #LI -> #ID ; #LI
 r11: #LI -> #ID .
 r12: #LT -> #TP ; #LT
