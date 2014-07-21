@@ -13,9 +13,10 @@
 #include <string.h>
 
 //------------CONSTANTES--------------
-int n_max_reduction = 76;
-int n_max_vocabulary = 66;
-int n_max_states = 166;
+int n_max_reduction = 44;
+int n_max_vocabulary = 48;
+int n_max_states = 79;
+int n_r_words = 7;
 //____________________________________
 
 typedef struct Stack {
@@ -26,7 +27,7 @@ typedef struct Stack {
 
 
 
-static char* r_words[] = {"BINARIO","CONTINUAR","E","ENQUANTO","INTEIRO","IMPRIMIR","LER","NAO","OU","PARAR","REAL","RETORNAR","SE","SENAO","SIM"};
+static char* r_words[] = {"ENQUANTO","INTEIRO","IMPRIMIR","LER","REAL","SE","SENAO"};
 static char* r_simb[] = {"+","-","*","/",">","<","[","]","=","<>","<<",".",";","@","(",")","{","}",">=","<="};
 char** tokens;
 int tokens_counter = 0;
@@ -36,9 +37,9 @@ Stack *tokens_stack = NULL;
 //char* table[n_max_states][n_max_vocabulary];
 //char* vocabulary[n_max_vocabulary];
 //char* reductions[n_max_reduction];
-char* table[166][66];
-char* vocabulary[66];
-char* reductions[76];
+char* table[79][48];
+char* vocabulary[48];
+char* reductions[44];
 
 
 
@@ -144,7 +145,7 @@ bool isReservedWord(char* token){
 	int i,l;
 	bool found = false;
 	if(token!=NULL){
-		for(l=0;l<15 && !found;l++){
+		for(l=0;l<n_r_words && !found;l++){
 			for(i=0;i<strlen(token) && strlen(token)==strlen(r_words[l]);i++){
 				if(r_words[l][i]!=token[i]){
 					l++;
@@ -164,7 +165,7 @@ void checkToken(char* token, int br){
 	int i,l;
 	bool found = false;
 	if(token!=NULL){
-		for(l=0;l<15 && !found;l++){
+		for(l=0;l<n_r_words && !found;l++){
 			for(i=0;i<strlen(token) && strlen(token)==strlen(r_words[l]);i++){
 				if(r_words[l][i]!=token[i]){
 					l++;
@@ -410,9 +411,10 @@ int posInVocabulary(char* token){
 	if(token!=NULL){
 		for(l=0;l<n_max_vocabulary && pos==-1;l++){
 			//printf("token:%d , vocabulary:%d\n",strlen(token),strlen(vocabulary[l]));
+			printf("token:%s , vocabulary:%s ;; l=%d \n",token,vocabulary[l],l);
 			for(i=0;i<strlen(token) && strlen(token)==strlen(vocabulary[l]);i++){
 				if(vocabulary[l][i]!=token[i]){
-					l++;
+					i=0;
 					break;
 				}
 			}
@@ -503,8 +505,8 @@ int main(int argc, char **argv) {
 	if(argc >= 1){
 		//printf("%d\n",argc);
 		FILE *f;
-		//f = fopen("Debug/exemplos/exemplo3.c141","r");
-		f = fopen(argv[1],"r");
+		f = fopen("Debug/exemplos/exemplo3.c141","r");
+		//f = fopen(argv[1],"r");
 
 		/*
 		 * Inicio da analise lexica
@@ -579,6 +581,7 @@ int main(int argc, char **argv) {
 		 * */
 		if(lexic_ok){
 			FILE *fv;
+			//puts("LEXIC");
 			//abre tabela.txt
 			fv = fopen("Debug/tabela.txt","r");
 			if(fv!=NULL){
@@ -609,9 +612,9 @@ int main(int argc, char **argv) {
 					v_counter++;
 					str = NULL;
 				}
-				//for(i=0;i<n_max_vocabulary;i++){
-					//printf("Vocabulary %d: %s\n",i,vocabulary[i]);
-				//}
+				for(i=0;i<n_max_vocabulary;i++){
+					printf("Vocabulary %d: %s\n",i,vocabulary[i]);
+				}
 				str = NULL;
 				fscanf(fv,"%c",&c);
 				while(c !=' ')
@@ -676,14 +679,15 @@ int main(int argc, char **argv) {
 
 				int j = 0;
 
-				//for(i=0;i<n_max_states;i++){
-					//for(j=0;j<v_counter;j++){
-						//printf("%s ",table[i][j]);
-					//}
-					//j=0;
-					//printf("\n");
-				//}
-
+				/*
+				for(i=0;i<n_max_states;i++){
+					for(j=0;j<v_counter;j++){
+						printf("%s ",table[i][j]);
+					}
+					j=0;
+					printf("\n");
+				}
+				*/
 
 				loadreductions();
 
@@ -715,7 +719,7 @@ int main(int argc, char **argv) {
 				}
 
 				/*
-				 * Algoritmo sintatico LR
+				 * Algoritmo sintatico SLR(1)
 				 * */
 				int current_state = 0;
 				Stack *current_token = pop(&tokens_stack);
@@ -797,6 +801,8 @@ int main(int argc, char **argv) {
 								result_compare = strncmp(current_token->str,split_second[i],strlen(split_second[i]));
 								if(result_compare!=0){
 									printf("NAO");//Alterar para especificação 3 e 4
+									//current_token = pop(&states_stack);
+									//TODO - ver a o codigo do splitsecond(correto(deveria):"#ID ." , retornando(atualmente): "#ID"
 									exit(-1);
 								}
 								current_state = current_token->state;

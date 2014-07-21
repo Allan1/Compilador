@@ -1,74 +1,44 @@
-r0: #SS -> #S $end
-r1: #S -> #DV #CB #DF #PP
-r2: #DV -> #TP #LI #DV
-r3: #DV -> #VAZIO
-r4: #CB -> #TP #ID ( #LT ) . #CB
-r5: #CB -> #VAZIO
-r6: #DF -> #TP #ID ( #LTI ) { #DV #CMDS } #DF
-r7: #DF -> #VAZIO
-r8: #PP -> [ #DV #CMDS ]
-r9: #PP -> [ ]
-r10: #LI -> #ID ; #LI
-r11: #LI -> #ID .
-r12: #LT -> #TP ; #LT
-r13: #LT -> #VAZIO
-r14: #LTI -> #TP #ID ; #LTI
-r15: #LTI -> #VAZIO
-r16: #CMDS -> #CMD #CMDS
-r17: #CMDS -> #VAZIO
-r18: #CMD -> #CHAFUN .
-r19: #CMD -> #ATR .
-r20: #CMD -> #DESVIO
-r21: #CMD -> #LOOP
-r22: #CMD -> #LEIT .
-r23: #CMD -> #IMP .
-r24: #CHAFUN -> #ID ( #LIC )
-r25: #ATR -> #ID << #EXPA
-r26: #ATR -> #ID << #EXPL
-r27: #DESVIO -> SE #EXPL { #CMDS } #SENAOSE #SNAO
-r28: #SENAOSE -> SENAO SE #EXPL { #CMDS } #SENAOSE
-r29: #SENAOSE -> #VAZIO
-r30: #SNAO -> SENAO { #CMDS }
-r31: #SNAO -> #VAZIO
-r32: #LOOP -> ENQUANTO #EXPL { #LCMDS }
-r33: #LCMDS -> #CMD #LCMDS
-r34: #LCMDS -> PARAR #LCMDS
-r35: #LCMDS -> CONTINUAR #LCMDS
-r36: #LCMDS -> SE #EXPL { #LCMDS } #SENAOSE #SNAO #LCMDS
-r37: #LCMDS -> #VAZIO
-r38: #LEIT -> LER #ID
-r39: #IMP -> IMPRIMIR #LIC
-r40: #EXPA -> #ID
-r41: #EXPA -> - #ID
-r42: #EXPA -> #CONST
-r43: #EXPA -> ( #EXPA )
-r44: #EXPA -> #EXPA #OPA #EXPA
-r45: #EXPL -> SIM
-r46: #EXPL -> NAO
-r47: #EXPL -> NAO #ID
-r48: #EXPL -> #ID
-r49: #EXPL -> NAO #CHAFUN
-r50: #EXPL -> #CHAFUN
-r51: #EXPL -> ( #EXPL )
-r52: #EXPL -> #EXPRL E #EXPRL
-r53: #EXPL -> #EXPRL OU #EXPRL
-r54: #EXPRL -> #EXPA #OPRL #EXPA
-r55: #LIC -> #ID ; #LIC
-r56: #LIC -> #CONST ; #LIC
-r57: #LIC -> #VAZIO
-r58: #TP -> INTEIRO
-r59: #TP -> REAL
-r60: #TP -> BINARIO
-r61: #ID -> VARIAVEL
-r62: #CONST -> CONSTANTE
-r63: #OPA -> +
-r64: #OPA -> -
-r65: #OPA -> *
-r66: #OPA -> /
-r67: #OPRL -> >
-r68: #OPRL -> <
-r69: #OPRL -> >=
-r70: #OPRL -> <=
-r71: #OPRL -> =
-r72: #OPRL -> <>
-r73: #VAZIO -> &
+r0: #SS -> #S $
+r1: #S -> [ #DV #CMD ]
+r2: #DV -> #T #LI
+r3: #DV -> #T #LI #DV
+r4: #T -> INTEIRO
+r5: #T -> REAL
+r6: #LI -> #ID .
+r7: #LI -> #ID ; #LI
+r8: #CMD -> #C #CMD
+r9: #CMD ->
+r10: #C -> #AT
+r11: #C -> #IF
+r12: #C -> #WH
+r13: #C -> #LE
+r14: #C -> #IMP
+r15: #AT -> #ID << #EXPA .
+r16: #EXPA -> #EXPA #OP #IDC
+r17: #EXPA -> ( #EXPA )
+r18: #EXPA -> #IDC
+r19: #EXPA -> - #IDC
+r20: #OP -> +
+r21: #OP -> -
+r22: #OP -> *
+r23: #OP -> /
+r24: #IDC -> CONSTANTE
+r25: #IDC -> #ID
+r26: #IF -> SE #EXPR { #C }
+r27: #IF -> SE #EXPR { #C } #SENAOS
+r28: #SENAOS -> SENAO SE #EXPR { #C }
+r29: #SENAOS -> SENAO SE #EXPR { #C } #SENAOS
+r30: #SENAOS -> SENAO { #C }
+r31: #WH -> ENQUANTO #EXPR { #C }
+r32: #LE -> LER #ID
+r33: #IMP -> IMPRIMIR #LIC
+r34: #LIC -> #IDC .
+r35: #LIC -> #IDC ; #LIC
+r36: #EXPR -> #EXPA #OPR #EXPA
+r37: #OPR -> <
+r38: #OPR -> >
+r39: #OPR -> <=
+r40: #OPR -> >=
+r41: #OPR -> =
+r42: #OPR -> <>
+r43: #ID -> VARIAVEL 
