@@ -368,7 +368,51 @@ void validateAlphanumeric(FILE* f, char* token,char* ptr_c, int* ptr_br,int* ptr
 		//do nothing
 	}
 	else if(isSymbol((*ptr_c))){
-		checkSymbol((*ptr_c),(*ptr_br));
+		//checkSymbol((*ptr_c),(*ptr_br));
+		//
+		if((*ptr_c)=='>' || (*ptr_c)=='<'){
+			char* prev = append(NULL,(*ptr_c));
+			(*ptr_index) = (*ptr_index) + 1;
+			fseek(f,(*ptr_index),SEEK_SET);
+			fscanf(f,"%c",&(*ptr_c));
+			//printf("index:%d char:%c\n",index,c);
+			if(isAlphanumeric((*ptr_c))){
+				saveToken(prev);
+				validateAlphanumeric(f,token,&(*ptr_c),&(*ptr_br),&(*ptr_index),&(*ptr_comment));
+			}else{
+				if((*ptr_c)==' '){
+					saveToken(prev);
+				}
+				else{
+					if(prev[0]=='<'){
+						if((*ptr_c)=='<'||(*ptr_c)=='='||(*ptr_c)=='>'){
+							prev = append(prev,(*ptr_c));
+							saveToken(prev);
+						}
+						else{
+							saveToken(prev);
+							checkSymbol((*ptr_c),(*ptr_br));
+						}
+					}
+					else{//>
+						if((*ptr_c)=='='){
+							prev = append(prev,(*ptr_c));
+							saveToken(prev);
+						}
+						else{
+							saveToken(prev);
+							checkSymbol((*ptr_c),(*ptr_br));
+						}
+					}
+
+				}
+
+			}
+		}
+		else{
+			checkSymbol((*ptr_c),(*ptr_br));
+		}
+		//
 	}
 
 }
@@ -411,7 +455,7 @@ int posInVocabulary(char* token){
 	if(token!=NULL){
 		for(l=0;l<n_max_vocabulary && pos==-1;l++){
 			//printf("token:%d , vocabulary:%d\n",strlen(token),strlen(vocabulary[l]));
-			printf("token:%s , vocabulary:%s ;; l=%d \n",token,vocabulary[l],l);
+			//printf("token:%s , vocabulary:%s ;; l=%d \n",token,vocabulary[l],l);
 			for(i=0;i<strlen(token) && strlen(token)==strlen(vocabulary[l]);i++){
 				if(vocabulary[l][i]!=token[i]){
 					i=0;
@@ -538,15 +582,42 @@ int main(int argc, char **argv) {
 				else if(isSymbol(c)){
 					//Alterar para a analise sintatica
 					if(c=='>' || c=='<'){
-						//char prev = c;
+						char* prev = append(NULL,c);
 						index = index + 1;
 						fseek(f,index,SEEK_SET);
 						fscanf(f,"%c",&c);
 						//printf("index:%d char:%c\n",index,c);
 						if(isAlphanumeric(c)){
+							saveToken(prev);
 							validateAlphanumeric(f,token,&c,&br,&index,&comment);
 						}else{
-							checkSymbol(c,br);
+							if(c==' '){
+								saveToken(prev);
+							}
+							else{
+								if(prev[0]=='<'){
+									if(c=='<'||c=='='||c=='>'){
+										prev = append(prev,c);
+										saveToken(prev);
+									}
+									else{
+										saveToken(prev);
+										checkSymbol(c,br);
+									}
+								}
+								else{//>
+									if(c=='='){
+										prev = append(prev,c);
+										saveToken(prev);
+									}
+									else{
+										saveToken(prev);
+										checkSymbol(c,br);
+									}
+								}
+
+							}
+
 						}
 					}
 					else{
@@ -564,9 +635,9 @@ int main(int argc, char **argv) {
 			//printf("br: %i\n",br);
 			fclose(f);
 			int j;
-			for(j=0;j<tokens_counter;j++){
-				//printf("%s\n",tokens[j]);
-			}
+			/*for(j=0;j<tokens_counter;j++){
+				printf("%s\n",tokens[j]);
+			}*/
 		}
 		else{
 			lexic_ok = false;
@@ -612,9 +683,9 @@ int main(int argc, char **argv) {
 					v_counter++;
 					str = NULL;
 				}
-				for(i=0;i<n_max_vocabulary;i++){
-					printf("Vocabulary %d: %s\n",i,vocabulary[i]);
-				}
+				//for(i=0;i<n_max_vocabulary;i++){
+					//printf("Vocabulary %d: %s\n",i,vocabulary[i]);
+				//}
 				str = NULL;
 				fscanf(fv,"%c",&c);
 				while(c !=' ')
@@ -705,7 +776,7 @@ int main(int argc, char **argv) {
 				tokens_stack->str = NULL;
 				tokens_stack->prev = NULL;
 
-				push(&tokens_stack,-1,"$");
+				push(&tokens_stack,-1,"$end");
 				for(j=tokens_counter-1;j>=0;j--){
 					//printf("t:%s\n",tokens[j]);
 					push(&tokens_stack,-1,tokens[j]);
@@ -787,26 +858,27 @@ int main(int argc, char **argv) {
 								}
 								if(str != NULL && str!=" "){
 									number_reduction++;
-									split_second = (char**)realloc(tokens,sizeof(char*)*number_reduction);
+									split_second = (char**)realloc(split_second,sizeof(char*)*number_reduction);
 									split_second[number_reduction-1] = str;
 
 								}
 							i++;
 							}
 							int result_compare;
-							i=0;
+							i=number_reduction-1;
 							push(&tokens_stack,-1,current_token->str);
-							while(i<number_reduction){
+							while(i>=0){
 								current_token = pop(&states_stack);
 								result_compare = strncmp(current_token->str,split_second[i],strlen(split_second[i]));
 								if(result_compare!=0){
+									printf("String 1: %s , String 2: %s\n",current_token->str,split_second[i]);
 									printf("NAO");//Alterar para especificação 3 e 4
 									//current_token = pop(&states_stack);
 									//TODO - ver a o codigo do splitsecond(correto(deveria):"#ID ." , retornando(atualmente): "#ID"
 									exit(-1);
 								}
 								current_state = current_token->state;
-								i++;
+								i--;
 							}
 							push(&tokens_stack,current_token->state,split_first);
 						}

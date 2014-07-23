@@ -1,3 +1,9 @@
 [
-INTEIRO a.	
+INTEIRO a.
+SE a < b {
+a << b.
+}
+ENQUANTO a > b {
+a<< b.
+}
 ]
