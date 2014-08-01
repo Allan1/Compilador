@@ -475,7 +475,7 @@ int posInVocabulary(char* token){
 bool isTokenNumber(char* token){
 	int i, left=0,right=0;
 	bool comma = false;
-	bool lexic_ok = false;
+	bool lexic_ok = true;
 	if(token!=NULL){
 		for(i=0;i<strlen(token);i++){
 			if(!isNumber(token[i]) && token[i]!=','){
