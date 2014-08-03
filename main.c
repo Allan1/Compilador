@@ -500,6 +500,8 @@ bool isTokenNumber(char* token){
 		if(left>10 || right>10){
 			lexic_ok = false;
 		}
+	}else{
+		lexic_ok = false;
 	}
 
 	return lexic_ok;
