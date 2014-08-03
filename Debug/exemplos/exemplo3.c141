@@ -1,9 +1,21 @@
 [
 INTEIRO a.
-SE a < b {
-a << b.
+SE a<b {
+	a<<b.
+	a<<-b+a+c.
+}SENAO SE b<a{
+	b<<a.
+}SENAO SE s<>a{
+
 }
-ENQUANTO a > b {
-a<< b.
+SE c<s{
+	LER a.
+}SENAO{
+	a<<b-2.
+	IMPRIMIR a.
+	ENQUANTO l=a{
+		
+	}
 }
 ]
+@Consertar #LE -> LER #ID POR (Ler #ID .) e ver a atribuição

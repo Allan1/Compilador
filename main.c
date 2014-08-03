@@ -15,7 +15,7 @@
 //------------CONSTANTES--------------
 int n_max_reduction = 44;
 int n_max_vocabulary = 48;
-int n_max_states = 79;
+int n_max_states = 80;
 int n_r_words = 7;
 //____________________________________
 
@@ -37,7 +37,7 @@ Stack *tokens_stack = NULL;
 //char* table[n_max_states][n_max_vocabulary];
 //char* vocabulary[n_max_vocabulary];
 //char* reductions[n_max_reduction];
-char* table[79][48];
+char* table[80][48];
 char* vocabulary[48];
 char* reductions[44];
 
@@ -475,7 +475,7 @@ int posInVocabulary(char* token){
 bool isTokenNumber(char* token){
 	int i, left=0,right=0;
 	bool comma = false;
-	bool lexic_ok = false;
+	bool lexic_ok = true;
 	if(token!=NULL){
 		for(i=0;i<strlen(token);i++){
 			if(!isNumber(token[i]) && token[i]!=','){
@@ -500,6 +500,8 @@ bool isTokenNumber(char* token){
 		if(left>10 || right>10){
 			lexic_ok = false;
 		}
+	}else{
+		lexic_ok = false;
 	}
 
 	return lexic_ok;
@@ -657,7 +659,8 @@ int main(int argc, char **argv) {
 			fv = fopen("Debug/tabela.txt","r");
 			if(fv!=NULL){
 				char c;
-				int v_counter = 0,i;
+				int v_counter = 0;
+				int i=0;
 				fseek(fv, 0L, SEEK_END);
 				long int file_size = ftell(fv);
 				fseek(fv,0,SEEK_SET);
@@ -684,7 +687,7 @@ int main(int argc, char **argv) {
 					str = NULL;
 				}
 				//for(i=0;i<n_max_vocabulary;i++){
-					//printf("Vocabulary %d: %s\n",i,vocabulary[i]);
+				//	printf("Vocabulary %d: %s\n",i,vocabulary[i]);
 				//}
 				str = NULL;
 				fscanf(fv,"%c",&c);

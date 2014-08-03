@@ -24,13 +24,13 @@ r22: #OP -> *
 r23: #OP -> /
 r24: #IDC -> CONSTANTE
 r25: #IDC -> #ID
-r26: #IF -> SE #EXPR { #C }
-r27: #IF -> SE #EXPR { #C } #SENAOS
-r28: #SENAOS -> SENAO SE #EXPR { #C }
-r29: #SENAOS -> SENAO SE #EXPR { #C } #SENAOS
-r30: #SENAOS -> SENAO { #C }
-r31: #WH -> ENQUANTO #EXPR { #C }
-r32: #LE -> LER #ID
+r26: #IF -> SE #EXPR { #CMD }
+r27: #IF -> SE #EXPR { #CMD } #SENAOS
+r28: #SENAOS -> SENAO SE #EXPR { #CMD }
+r29: #SENAOS -> SENAO SE #EXPR { #CMD } #SENAOS
+r30: #SENAOS -> SENAO { #CMD }
+r31: #WH -> ENQUANTO #EXPR { #CMD }
+r32: #LE -> LER #ID .
 r33: #IMP -> IMPRIMIR #LIC
 r34: #LIC -> #IDC .
 r35: #LIC -> #IDC ; #LIC
